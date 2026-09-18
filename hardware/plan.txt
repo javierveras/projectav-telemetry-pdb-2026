@@ -1,0 +1,525 @@
+============================================================
+TELEMETRY & POWER DISTRIBUTION BOARD — REVAMP PLAN
+============================================================
+
+GOAL
+----
+Redesign the existing Telemetry and Power Distribution system
+around a custom PCB.
+
+The new board will act as a "motherboard", integrating simple
+and reliable circuitry directly onto the PCB while keeping
+complex, replaceable, or higher-risk components as modular
+"daughterboards".
+
+
+============================================================
+1. OVERALL ARCHITECTURE
+============================================================
+
+MOTHERBOARD
+-----------
+Main custom PCB responsible for:
+
+- Power distribution
+- Current sensing
+- Voltage sensing
+- Battery cell monitoring
+- Signal conditioning
+- ADC protection/filtering
+- Status / warning indicators
+- Interconnection between modules
+- Telemetry signal routing
+
+
+DAUGHTERBOARDS / EXTERNAL MODULES
+---------------------------------
+Keep the following modular, at least for Rev. 1:
+
+- Arduino Mega
+- SD Card Module
+- DC-DC Converters
+- LCD Screen
+- Temperature Sensors
+- Buzzers
+
+WHY?
+
+- Easier replacement
+- Easier troubleshooting
+- Lower risk during initial development
+- Allows proven commercial modules to remain in use
+- A failure does not necessarily require replacing the entire PCB
+- Individual modules can be upgraded later
+
+
+============================================================
+2. CIRCUITS TO INTEGRATE DIRECTLY INTO THE PCB
+============================================================
+
+The following should be redesigned and integrated directly:
+
+[ ] Current Sensors
+[ ] Voltage Sensors
+[ ] Battery Cell Voltage Monitoring
+[ ] Signal Conditioning
+[ ] ADC Input Protection
+[ ] RC Filtering
+[ ] Status / Warning LEDs
+[ ] Diagnostic Test Points
+
+These circuits are relatively simple and can eliminate many
+of the separate modules, wires, and connectors currently used.
+
+
+IMPORTANT:
+
+Research, prototype, and validate the DIY sensing and signal
+conditioning circuits BEFORE integrating them into the final PCB.
+
+Particular attention should be given to:
+
+- Maximum input voltage
+- Maximum current
+- Arduino ADC voltage limits
+- Voltage divider design
+- Current sensor output range
+- Input overvoltage protection
+- RC filtering
+- Noise
+- Grounding
+- Component tolerances
+- Failure conditions
+
+
+============================================================
+3. BATTERY CELL MONITORING
+============================================================
+
+Redesign the existing battery cell monitoring / resistor board
+as part of the motherboard.
+
+Each cell measurement should include:
+
+Battery Cell
+    |
+    +--> Voltage Scaling / Signal Conditioning
+    |
+    +--> Filtering
+    |
+    +--> ADC Protection
+    |
+    +--> Arduino Mega ADC
+
+
+STATUS LEDs
+-----------
+Add visual indicators for battery condition.
+
+Possible implementation:
+
+GREEN  = Normal
+YELLOW = Warning
+RED    = Fault
+
+Possible monitored conditions:
+
+- Cell undervoltage
+- Cell overvoltage
+- Abnormal cell-to-cell voltage difference
+
+Research whether these indicators should be controlled by:
+
+A) Arduino Software
+
+or
+
+B) Independent hardware comparators
+
+Hardware-controlled fault indicators could remain functional
+even if the Arduino crashes.
+
+
+============================================================
+4. POWER DISTRIBUTION
+============================================================
+
+Keep compatibility with the rover's existing connector system:
+
+INPUT / HIGH CURRENT:
+- XT90 Male
+
+OUTPUTS:
+- XT60 Female
+
+
+The motherboard should become the central power distribution
+point.
+
+Example:
+
+                    BATTERY
+                       |
+                     XT90
+                       |
+                MAIN PROTECTION
+                       |
+               +-------+-------+
+               |       |       |
+              XT60    XT60    XT60
+               |       |       |
+             LOAD 1  LOAD 2  LOAD 3
+
+
+DESIGN CONSIDERATIONS
+---------------------
+
+Determine:
+
+[ ] Nominal system voltage
+[ ] Maximum battery voltage
+[ ] Continuous current
+[ ] Peak current
+[ ] Motor stall current
+[ ] Expected fault current
+[ ] Connector current ratings
+[ ] Copper thickness
+[ ] Required copper width / area
+[ ] Fuse ratings
+[ ] Thermal performance
+[ ] Ground return paths
+
+
+HIGH-CURRENT PCB DESIGN
+-----------------------
+
+Avoid treating high-current power paths like ordinary signals.
+
+Use:
+
+- Large copper pours / polygons
+- Short power paths
+- Appropriate copper thickness
+- Multiple vias where current changes layers
+- Proper connector placement
+- Adequate thermal management
+
+Keep high-current switching/power paths away from sensitive
+analog telemetry signals whenever possible.
+
+
+============================================================
+5. PROTECTION
+============================================================
+
+Investigate adding protection directly to the motherboard.
+
+Possible protections:
+
+[ ] Main battery fuse
+[ ] Individual output fuses
+[ ] Reverse-polarity protection
+[ ] Overvoltage protection
+[ ] Transient suppression
+[ ] Short-circuit protection
+[ ] Overcurrent detection
+[ ] Battery disconnect capability
+[ ] Protected Arduino ADC inputs
+
+
+IMPORTANT DESIGN PRINCIPLE:
+
+The Arduino should MONITOR the system.
+
+Critical protection should ideally NOT depend entirely on the
+Arduino being alive and functioning correctly.
+
+
+============================================================
+6. BMS — FUTURE DEVELOPMENT
+============================================================
+
+Research replacing the existing battery monitoring/resistor
+board with a true Battery Management System (BMS).
+
+
+DESIRED BMS FEATURES
+--------------------
+
+[ ] Individual cell voltage monitoring
+[ ] Cell balancing
+[ ] Overcharge protection
+[ ] Over-discharge protection
+[ ] Charge cutoff
+[ ] Overcurrent protection
+[ ] Short-circuit protection
+[ ] Temperature monitoring
+[ ] Automatic battery disconnect during faults
+
+
+POSSIBLE ARCHITECTURES
+----------------------
+
+OPTION A:
+Integrate BMS directly into the motherboard.
+
+OPTION B:
+Design a dedicated custom BMS daughterboard.
+
+OPTION C:
+Use a commercial BMS and interface it with the motherboard.
+
+
+RECOMMENDED APPROACH:
+
+Do NOT make a fully custom BMS a requirement for Rev. 1.
+
+Rev. 1 should prioritize:
+
+1. Reliable Power Distribution
+2. Reliable Voltage/Current Monitoring
+3. Safe Signal Conditioning
+4. ADC Protection
+5. Modularity
+6. Diagnostics
+
+Develop the BMS separately once the core board is proven.
+
+
+============================================================
+7. DEBUGGING / SERVICEABILITY
+============================================================
+
+Design the PCB to make troubleshooting EASY.
+
+Add:
+
+[ ] Test points for every important voltage rail
+[ ] Test points for current sensor outputs
+[ ] Test points for cell voltage signals
+[ ] Power LEDs
+[ ] Fault LEDs
+[ ] Clearly labeled connectors
+[ ] Clearly labeled polarity
+[ ] Clearly labeled test points
+[ ] Accessible fuses
+[ ] Accessible daughterboards
+[ ] Programming/debugging access for Arduino
+
+Potential LEDs:
+
+POWER       [LED]
+5V RAIL     [LED]
+12V RAIL    [LED]
+CELL FAULT  [LED]
+OVERCURRENT [LED]
+SYSTEM OK   [LED]
+
+
+============================================================
+8. DEVELOPMENT PLAN
+============================================================
+
+PHASE 1 — DOCUMENT EXISTING SYSTEM
+----------------------------------
+
+[ ] Reverse-engineer current board
+[ ] Create full schematic
+[ ] Create system block diagram
+[ ] Document every connector
+[ ] Document every voltage rail
+[ ] Document every load
+[ ] Measure actual operating currents
+[ ] Determine worst-case currents
+
+
+PHASE 2 — DESIGN & TEST SENSORS
+-------------------------------
+
+[ ] Design voltage sensing circuit
+[ ] Design current sensing circuit
+[ ] Design cell monitoring circuit
+[ ] Design ADC protection
+[ ] Design RC filtering
+[ ] Prototype circuits
+[ ] Test against known voltages/currents
+[ ] Verify accuracy
+[ ] Verify maximum safe inputs
+
+
+PHASE 3 — POWER DISTRIBUTION
+----------------------------
+
+[ ] Define XT90 input
+[ ] Define XT60 outputs
+[ ] Determine current requirements
+[ ] Select protection devices
+[ ] Determine fuse ratings
+[ ] Size copper paths
+[ ] Design grounding architecture
+[ ] Determine thermal requirements
+
+
+PHASE 4 — MOTHERBOARD SCHEMATIC
+-------------------------------
+
+Integrate:
+
+[ ] Arduino Mega interface
+[ ] Current sensors
+[ ] Voltage sensors
+[ ] Cell monitoring
+[ ] Signal conditioning
+[ ] Protection circuitry
+[ ] SD module interface
+[ ] DC-DC module interfaces
+[ ] LCD interface
+[ ] Temperature sensor interfaces
+[ ] Buzzers
+[ ] LEDs
+[ ] Test points
+[ ] Power connectors
+
+
+PHASE 5 — PCB LAYOUT
+--------------------
+
+Priority:
+
+1. High-current power paths
+2. Protection components
+3. DC-DC power interfaces
+4. Grounding
+5. Current/voltage sensing
+6. Analog signal conditioning
+7. Arduino/interface signals
+8. Telemetry/peripherals
+
+
+PHASE 6 — PROTOTYPE & VALIDATION
+--------------------------------
+
+DO NOT immediately connect the finished board to the rover.
+
+Test progressively:
+
+[ ] Visual inspection
+[ ] Continuity testing
+[ ] Short-circuit testing
+[ ] Power rails with current-limited supply
+[ ] Verify regulator outputs
+[ ] Verify Arduino supply
+[ ] Verify sensor outputs
+[ ] Verify ADC voltages
+[ ] Test known voltage inputs
+[ ] Test known current loads
+[ ] Verify SD logging
+[ ] Verify LCD
+[ ] Verify temperature sensing
+[ ] Verify warning LEDs
+[ ] Verify protection systems
+[ ] Increase load progressively
+[ ] Perform thermal testing
+[ ] Test with actual battery
+[ ] Integrate with rover
+
+
+============================================================
+9. REVISION STRATEGY
+============================================================
+
+REV. 1
+------
+Telemetry + Power Distribution Motherboard
+
+Focus:
+- Power distribution
+- Sensing
+- Signal conditioning
+- Protection
+- Arduino integration
+- Modularity
+- Diagnostics
+
+
+REV. 2
+------
+Refinement
+
+Focus:
+- Fix Rev. 1 problems
+- Improve layout
+- Reduce unnecessary modules
+- Improve protection
+- Improve thermal performance
+- Improve serviceability
+
+
+REV. 3 / BMS
+------------
+Advanced Battery Management
+
+Potential additions:
+- Active battery disconnect
+- Cell balancing
+- Charge control
+- Hardware overcurrent cutoff
+- Hardware short-circuit protection
+- Temperature-based protection
+
+
+============================================================
+FINAL ARCHITECTURE
+============================================================
+
+                     BATTERY
+                        |
+                      XT90
+                        |
+                +----------------+
+                |   PROTECTION   |
+                +----------------+
+                        |
+              +---------+---------+
+              |                   |
+      POWER DISTRIBUTION      MONITORING
+              |                   |
+        XT60 OUTPUTS        +------+------+
+                            |             |
+                         CURRENT       VOLTAGE
+                         SENSING       SENSING
+                            |             |
+                            +------+------+
+                                   |
+                         SIGNAL CONDITIONING
+                                   |
+                              ADC PROTECTION
+                                   |
+                              ARDUINO MEGA
+                                   |
+                    +--------------+--------------+
+                    |              |              |
+                   SD            LCD         TEMPERATURE
+                 LOGGING        DISPLAY        SENSORS
+
+
+============================================================
+CORE DESIGN PHILOSOPHY
+============================================================
+
+SAFETY
+  >
+RELIABILITY
+  >
+SERVICEABILITY
+  >
+MODULARITY
+  >
+COMPACTNESS
+
+
+The objective is NOT simply to put everything onto one PCB.
+
+The objective is to create a reliable central electrical
+platform for the rover that is easy to monitor, diagnose,
+repair, modify, and eventually expand.
