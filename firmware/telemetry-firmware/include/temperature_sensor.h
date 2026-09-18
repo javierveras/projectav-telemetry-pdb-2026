@@ -1,26 +1,34 @@
 #pragma once
-
-#include <Arduino.h>
-#include <LiquidCrystal_I2C.h>
 #include <Bonezegei_DHT11.h>
-#include "pin_config.h"
-#include "timing.h"
+#include "sensors.h"
 
-class TemperatureSensor {
-    private:
-    Bonezegei_DHT11 dht; //digital temperature and humidity sensor object
-    float temperature;
+// ============================================================================
+// Temperature Sensor Class Definition
+// DHT11 acquisition, timing, and measurement state
+// ============================================================================
+
+class TemperatureSensor
+{
+private:
+    // Hardware Interface
+    Bonezegei_DHT11 dht;
+
+    // Sensor State
+    float         temperature;
     unsigned long lastRead;
-    static constexpr unsigned long READ_INTERVAL_MS = DHT_MS;
-    bool valid;
+    bool          valid;
 
-    public:
+    // Timing
+    static constexpr unsigned long READ_INTERVAL_MS = DHT_MS;
+
+    //Statistics
+    SignalStats stats;
+
+public:
+    // Lifecycle
     TemperatureSensor(uint8_t pin);
 
-    void update(){
-
-    }
-
+    // Data Access
     float getTemperature() const;
-    bool isValid() const;
+    bool  isValid()        const;
 };

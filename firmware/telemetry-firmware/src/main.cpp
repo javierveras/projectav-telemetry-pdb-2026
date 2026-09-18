@@ -5,14 +5,9 @@ void setup() {
 
   Serial.begin(115200);
 
-  batteryTemp.update();
-
 };
 
 void loop() {
 
-
-
-
 }
-
+ 
