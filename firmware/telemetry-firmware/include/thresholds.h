@@ -4,9 +4,9 @@
 static constexpr float WARN_TEMP_HIGH    = 45.0f;
 
 // Per-cell LiPo limits (V)
-static constexpr float WARN_CELL_UV      = 3.30f;   // undervoltage warning
-static constexpr float WARN_CELL_UV_CRIT = 3.00f;   // critical undervoltage
-static constexpr float WARN_CELL_OV      = 4.25f;   // overvoltage warning
+static constexpr float WARN_CELL_UNDERVOLTAGE      = 3.30f;   // undervoltage warning
+static constexpr float WARN_CELL_UNDERVOLTAGE_CRIT = 3.00f;   // critical undervoltage
+static constexpr float WARN_CELL_OVERVOLTAGE      = 4.25f;   // overvoltage warning
 
 // Cell imbalance: max spread between the highest and lowest of the 4 cells (V).
 // Assumes all four taps are connected; a disconnected tap will read ~0 V and
