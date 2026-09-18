@@ -1,14 +1,18 @@
 #include <Arduino.h>
-#include "pin_config.h"
-
+#include "sensors.h"
 
 void setup() {
-  
+
   Serial.begin(115200);
 
-}
+  batteryTemp.update();
+
+};
 
 void loop() {
+
+
+
 
 }
 

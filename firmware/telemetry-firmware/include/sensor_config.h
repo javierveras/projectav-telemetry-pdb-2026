@@ -11,10 +11,3 @@ constexpr float ZERO_CURRENT_REF = ARDUINO_VOLTAGE_REF/2.0f;
 constexpr float R_TOP    = 47000.0f;
 constexpr float R_BOTTOM = 10000.0f;
 constexpr float CELL_DIVIDER_RATIO = (R_TOP + R_BOTTOM) / R_BOTTOM;
-
-class TemperatureSensor {
-    private:
-
-    public:
-    
-};
