@@ -28,7 +28,12 @@ public:
     // Lifecycle
     TemperatureSensor(uint8_t pin);
 
+    //Data Acquisition
+    void readTemperature();
+
     // Data Access
-    float getTemperature() const;
-    bool  isValid()        const;
+    float getCurrent() const;
+    float getMin() const;
+    float getMax() const;
+    float getAvg() const;
 };
