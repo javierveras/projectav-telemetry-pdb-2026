@@ -23,7 +23,7 @@ private:
     SignalStats stats;
 
 public:
-    // Lifecycle
+    // Constructor
     CurrentSensor(uint8_t pin);
 
     // Calibration

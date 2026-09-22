@@ -9,31 +9,32 @@
 
 class TemperatureSensor
 {
-private:
-    // Hardware Interface
-    Bonezegei_DHT11 dht;
+    private:
+    
+        // Hardware Interface
+        Bonezegei_DHT11 dht;
 
-    // Sensor State
-    float         temperature;
-    unsigned long lastRead;
-    bool          valid;
+        // Sensor State
+        float         temperature;
+        unsigned long lastRead;
+        bool          valid;
 
-    // Timing
-    static constexpr unsigned long READ_INTERVAL_MS = DHT_MS;
+        // Timing
+        static constexpr unsigned long READ_INTERVAL_MS = DHT_MS;
 
-    //Statistics
-    SignalStats stats;
+        //Statistics
+        SignalStats stats;
 
-public:
-    // Lifecycle
-    TemperatureSensor(uint8_t pin);
+    public:
+        // Constructor
+        TemperatureSensor(uint8_t pin);
 
-    //Data Acquisition
-    void readTemperature();
+        //Data Acquisition
+        void readTemperature();
 
-    // Data Access
-    float getCurrent() const;
-    float getMin() const;
-    float getMax() const;
-    float getAvg() const;
+        // Data Access
+        float getCurrent() const;
+        float getMin() const;
+        float getMax() const;
+        float getAvg() const;
 };
