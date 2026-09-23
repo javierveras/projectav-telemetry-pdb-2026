@@ -15,4 +15,5 @@ namespace PIN // Pin assignments
     constexpr uint8_t VOLTAGE_12V = A3;
     constexpr uint8_t BATTERY_TEMPERATURE_SENSOR = 53;
     constexpr uint8_t BATTERY_CELL_VOLTAGE[4] = { A12, A13, A14, A15 };
+    constexpr uint8_t AMBIENT_TEMPERATURE_SENSOR = 54;
 }
