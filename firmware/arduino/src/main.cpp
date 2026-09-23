@@ -6,7 +6,7 @@ void setup() {
 
   Serial.begin(115200);
 
-for (CurrentSensor* sensor : ConverterCurrentSensors) {
+  for (CurrentSensor* sensor : ConverterCurrentSensors) {
     sensor->calibrate();
   }
 
@@ -14,8 +14,9 @@ for (CurrentSensor* sensor : ConverterCurrentSensors) {
 
 void loop() {
 
-  batteryTemp.readTemperature();
-
-  ambientTemp.readTemperature();
+  for (TemperatureSensor* sensor : TemperatureSensors) {
+    sensor->readTemperature();
+    sensor->printToSerial();
+  }
 
 }

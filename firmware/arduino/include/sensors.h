@@ -223,11 +223,15 @@ public:
 
         updateStatistics(temperature);
     }
+
+    void printToSerial() {
+        
+    }
 };
 
 TemperatureSensor batteryTemp(PIN::BATTERY_TEMPERATURE_SENSOR);
-
 TemperatureSensor ambientTemp(PIN::AMBIENT_TEMPERATURE_SENSOR);
+TemperatureSensor armTemp(89);
 
 CurrentSensor converter15Vto5V(PIN::CURRENT_5V);
 CurrentSensor converter15Vto12V(PIN::CURRENT_12V);
@@ -236,4 +240,10 @@ CurrentSensor converter15Vto12V(PIN::CURRENT_12V);
 CurrentSensor* ConverterCurrentSensors[] = {
     &converter15Vto5V,
     &converter15Vto12V
+};
+
+TemperatureSensor* TemperatureSensors[] = {
+    &batteryTemp,
+    &ambientTemp,
+    &armTemp
 };
