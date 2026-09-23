@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "author": "Javier",
+  "editor": "wokwi",
+  "parts": [
+    {
+        "type": "wokwi-arduino-mega",
+        "id": "mega",
+        "top": 0,
+        "left": 0,
+        "attrs": {}
+    },
+    {
+        "type": "wokwi-potentiometer",
+        "id": "current5v",
+        "top": 100,
+        "left": -150,
+        "attrs": {}
+    },
+    {
+        "type": "wokwi-potentiometer",
+        "id": "current12v",
+        "top": 0,
+        "left": -150,
+        "attrs": {}
+    }
+  ],
+    "connections": [
+    [ "current5v:VCC", "mega:5V", "red", [] ],
+    [ "current5v:GND", "mega:GND.1", "black", [] ],
+    [ "current5v:SIG", "mega:A0", "green", [] ],
+    [ "current12v:VCC", "mega:5V", "red", [] ],
+    [ "current12v:GND", "mega:GND.1", "black", [] ],
+    [ "current12v:SIG", "mega:A1", "green", [] ]
+  ],
+  "serialMonitor": {
+    "display": "terminal",
+    "newline": "lf"
+  }
+}

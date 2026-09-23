@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include "constants.h"
-#include "readings.h"
+#include "bms.h"
 #include "Bonezegei_DHT11.h"
 #include "lcd_screen.h"
 
@@ -37,6 +37,7 @@ protected:
     float minimum  = NAN;
     float maximum  = NAN;
     float average  = NAN;
+    String label;
 
     uint32_t sampleCount = 0;
 
@@ -114,8 +115,15 @@ public:
         average     = NAN;
         sampleCount = 0;
     }
-};
 
+    virtual void read(){};
+
+    void printToSerial() {
+        Serial.print(label+"=");
+        Serial.print(realTime, 2);
+        Serial.print(",");
+    };
+};
 
 class CurrentSensor : public Sensor
 {
@@ -127,17 +135,12 @@ private:
 
 public:
 
-    CurrentSensor(uint8_t pin)
-        : pin(pin) {}
+    CurrentSensor(uint8_t pin, String Label)
+        : pin(pin) {label=Label;}
 
     void calibrate()
     {
-        LCD_Screen.clear();
-        LCD_Screen.setCursor(0, 0); 
-        LCD_Screen.print("Calibrating Current Sensors..");
-        LCD_Screen.setCursor(0, 1); 
-        LCD_Screen.print("PLEASE REMOVE ALL LOADS!");
-
+        Serial.println("calibrating..");
         constexpr uint16_t CAL_SAMPLES = 200;
 
         unsigned long sum = 0;
@@ -151,22 +154,19 @@ public:
 
         // Calculate average ADC reading
         float averageADC =
-            static_cast<float>(sum) / CAL_SAMPLES;
+            sum / CAL_SAMPLES;
+
+        Serial.print(averageADC);
+        Serial.print("average ADC");
 
         // Convert ADC reading to sensor voltage
         zeroCurrentVoltage =
             averageADC *
             (ARDUINO_VOLTAGE_REF / 1023.0f);
 
-        LCD_Screen.clear();
-        LCD_Screen.setCursor(0, 0); 
-        LCD_Screen.print("Calibration Done!");
-        delay(800);
-        LCD_Screen.clear();
     }
 
-
-    void readCurrent()
+    void read() override
     {
         uint16_t adcReading = analogRead(pin);
 
@@ -202,10 +202,10 @@ private:
 
 public:
 
-    TemperatureSensor(uint8_t pin)
-        : dht(pin) {}
+    TemperatureSensor(uint8_t pin, String Label)
+        : dht(pin) {label=Label;}
 
-    void readTemperature()
+    void read() override
     {
         const unsigned long now = millis();
 
@@ -224,26 +224,27 @@ public:
         updateStatistics(temperature);
     }
 
-    void printToSerial() {
-        
-    }
 };
 
-TemperatureSensor batteryTemp(PIN::BATTERY_TEMPERATURE_SENSOR);
-TemperatureSensor ambientTemp(PIN::AMBIENT_TEMPERATURE_SENSOR);
-TemperatureSensor armTemp(89);
-
-CurrentSensor converter15Vto5V(PIN::CURRENT_5V);
-CurrentSensor converter15Vto12V(PIN::CURRENT_12V);
-
-
-CurrentSensor* ConverterCurrentSensors[] = {
-    &converter15Vto5V,
-    &converter15Vto12V
+CurrentSensor CURRENT_SENSORS[] = {
+    { PIN::CURRENT_5V,  "05C" },
+    { PIN::CURRENT_12V,  "12C" }
 };
 
-TemperatureSensor* TemperatureSensors[] = {
-    &batteryTemp,
-    &ambientTemp,
-    &armTemp
+TemperatureSensor TEMPERATURE_SENSORS[] = {
+    { PIN::BATTERY_TEMPERATURE_SENSOR, "BTP" }
 };
+
+Sensor* SENSORS[] = {
+    &CURRENT_SENSORS[0],
+    &CURRENT_SENSORS[1],
+    &TEMPERATURE_SENSORS[0]
+};
+
+void CALIBRATE_CURRENT_SENSORS() {
+
+  for (CurrentSensor& sensor : CURRENT_SENSORS) {
+    sensor.calibrate();
+  }
+
+}

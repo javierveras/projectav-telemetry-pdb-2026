@@ -1,22 +1,38 @@
 #include <Arduino.h>
 #include "sensors.h"
-#include "readings.h"
+#include "constants.h"
+#include "bms.h"
+
+unsigned long lastTelemetryTime;
 
 void setup() {
 
   Serial.begin(115200);
 
-  for (CurrentSensor* sensor : ConverterCurrentSensors) {
-    sensor->calibrate();
-  }
+  CALIBRATE_CURRENT_SENSORS();
+
+  Serial.println("START_READING");
 
 };
 
 void loop() {
 
-  for (TemperatureSensor* sensor : TemperatureSensors) {
-    sensor->readTemperature();
-    sensor->printToSerial();
+  for (Sensor* sensor : SENSORS) {
+    sensor->read();
+  }
+
+  // Transmit every 250 ms
+  const unsigned long now = millis();
+
+  if (now - lastTelemetryTime >= TELEMETRY_MS)
+  {
+    lastTelemetryTime = now;
+
+    for (Sensor* sensor : SENSORS)
+    {
+        sensor->printToSerial();
+    }
+    Serial.println();
   }
 
 }
