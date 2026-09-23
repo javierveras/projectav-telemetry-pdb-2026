@@ -244,5 +244,6 @@ CurrentSensor* ConverterCurrentSensors[] = {
 
 TemperatureSensor* TemperatureSensors[] = {
     &batteryTemp,
-    &ambientTemp
+    &ambientTemp,
+    &armTemp
 };
