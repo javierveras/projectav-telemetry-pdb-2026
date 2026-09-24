@@ -11,13 +11,19 @@ void setup() {
 
   CALIBRATE_CURRENT_SENSORS();
 
+  for(int pin : PIN::LED_OUTPUT) { // Set LED pins
+    pinMode(pin, OUTPUT);
+  }
+
+  pinMode(PIN::BUZZER, OUTPUT);
+
   Serial.println("START_READING");
 
 };
 
 void loop() {
 
-  for (Sensor* sensor : SENSORS) {
+  for (VoltageSensor* sensor : CELL_VOLTAGE_SENSORS) {
     sensor->read();
   }
 
@@ -28,10 +34,17 @@ void loop() {
   {
     lastTelemetryTime = now;
 
-    for (Sensor* sensor : SENSORS)
+    for (VoltageSensor* sensor : CELL_VOLTAGE_SENSORS)
     {
         sensor->printToSerial();
     }
+    int index = 0;
+    for (VoltageSensor* sensor : CELL_VOLTAGE_SENSORS)
+    {
+        sensor->printFaults(index);
+        index++;
+    }
+    Serial.print("/n");
     Serial.println();
   }
 

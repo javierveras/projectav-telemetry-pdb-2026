@@ -15,5 +15,28 @@ namespace PIN // Pin assignments
     constexpr uint8_t VOLTAGE_12V = A3;
     constexpr uint8_t BATTERY_TEMPERATURE_SENSOR = 53;
     constexpr uint8_t BATTERY_CELL_VOLTAGE[4] = { A12, A13, A14, A15 };
+    constexpr uint8_t LED_OUTPUT[4] = { 2, 3, 4, 5 };
     constexpr uint8_t AMBIENT_TEMPERATURE_SENSOR = 54;
+    constexpr uint8_t BUZZER = 12;
+}
+
+// System Fault Identifiers
+namespace SUBSYSTEM {
+    uint8_t POWER_DISTRIBUTION = 1;
+    uint8_t BATTERY = 2;
+    uint8_t MOBILITY = 3;
+    uint8_t ENVIROMENT = 4;
+}
+
+namespace SEVERITY {
+    uint8_t WARNING = 1;
+    uint8_t CRITICAL = 2;
+    uint8_t EMERGENCY = 3;
+}
+
+namespace TYPE {
+    uint8_t HIGH_LIMIT = 1;
+    uint8_t LOW_LIMIT = 2;
+    uint8_t INVALID = 3;
+    uint8_t SIGNAL_LOST = 4;
 }

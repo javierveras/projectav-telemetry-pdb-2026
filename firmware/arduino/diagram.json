@@ -4,35 +4,186 @@
   "editor": "wokwi",
   "parts": [
     {
-        "type": "wokwi-arduino-mega",
-        "id": "mega",
-        "top": 0,
-        "left": 0,
-        "attrs": {}
+      "type": "wokwi-arduino-mega",
+      "id": "mega",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
     },
     {
-        "type": "wokwi-potentiometer",
-        "id": "current5v",
-        "top": 100,
-        "left": -150,
-        "attrs": {}
+      "type": "wokwi-potentiometer",
+      "id": "current5v",
+      "top": 100,
+      "left": -150,
+      "attrs": {}
     },
     {
-        "type": "wokwi-potentiometer",
-        "id": "current12v",
-        "top": 0,
-        "left": -150,
-        "attrs": {}
+      "type": "wokwi-potentiometer",
+      "id": "current12v",
+      "top": 0,
+      "left": -150,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA12",
+      "top": 200,
+      "left": -150,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA13",
+      "top": 300,
+      "left": -150,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA14",
+      "top": 400,
+      "left": -150,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA15",
+      "top": 500,
+      "left": -150,
+      "attrs": {}
+    },
+
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 0,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "LED1",
+      "top": 0,
+      "left": 500,
+      "attrs": {
+        "color": "red"
+      }
+    },
+
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 60,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "LED2",
+      "top": 60,
+      "left": 500,
+      "attrs": {
+        "color": "red"
+      }
+    },
+
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 120,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "LED3",
+      "top": 120,
+      "left": 500,
+      "attrs": {
+        "color": "red"
+      }
+    },
+
+    {
+      "type": "wokwi-resistor",
+      "id": "r4",
+      "top": 180,
+      "left": 400,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "LED4",
+      "top": 180,
+      "left": 500,
+      "attrs": {
+        "color": "red"
+      }
+    },
+      {
+    "type": "wokwi-buzzer",
+    "id": "buzzer1",
+    "top": 280,
+    "left": 450,
+    "attrs": {
+      "volume": "0.1"
     }
+  }
   ],
-    "connections": [
+
+  "connections": [
     [ "current5v:VCC", "mega:5V", "red", [] ],
     [ "current5v:GND", "mega:GND.1", "black", [] ],
     [ "current5v:SIG", "mega:A0", "green", [] ],
+
     [ "current12v:VCC", "mega:5V", "red", [] ],
     [ "current12v:GND", "mega:GND.1", "black", [] ],
-    [ "current12v:SIG", "mega:A1", "green", [] ]
+    [ "current12v:SIG", "mega:A1", "green", [] ],
+
+    [ "potA12:VCC", "mega:5V", "red", [] ],
+    [ "potA12:GND", "mega:GND.1", "black", [] ],
+    [ "potA12:SIG", "mega:A12", "green", [] ],
+
+    [ "potA13:VCC", "mega:5V", "red", [] ],
+    [ "potA13:GND", "mega:GND.1", "black", [] ],
+    [ "potA13:SIG", "mega:A13", "green", [] ],
+
+    [ "potA14:VCC", "mega:5V", "red", [] ],
+    [ "potA14:GND", "mega:GND.1", "black", [] ],
+    [ "potA14:SIG", "mega:A14", "green", [] ],
+
+    [ "potA15:VCC", "mega:5V", "red", [] ],
+    [ "potA15:GND", "mega:GND.1", "black", [] ],
+    [ "potA15:SIG", "mega:A15", "green", [] ],
+
+    [ "mega:2", "r1:1", "green", [] ],
+    [ "r1:2", "LED1:A", "green", [] ],
+    [ "LED1:C", "mega:GND.1", "black", [] ],
+
+    [ "mega:3", "r2:1", "green", [] ],
+    [ "r2:2", "LED2:A", "green", [] ],
+    [ "LED2:C", "mega:GND.1", "black", [] ],
+
+    [ "mega:4", "r3:1", "green", [] ],
+    [ "r3:2", "LED3:A", "green", [] ],
+    [ "LED3:C", "mega:GND.1", "black", [] ],
+
+    [ "mega:5", "r4:1", "green", [] ],
+    [ "r4:2", "LED4:A", "green", [] ],
+    [ "LED4:C", "mega:GND.1", "black", [] ],
+
+    [ "buzzer1:1", "mega:12", "green", [] ],
+    [ "buzzer1:2", "mega:GND.1", "black", [] ]
   ],
+
   "serialMonitor": {
     "display": "terminal",
     "newline": "lf"

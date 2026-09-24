@@ -3,7 +3,9 @@
 #include "constants.h"
 #include "bms.h"
 #include "Bonezegei_DHT11.h"
-#include "lcd_screen.h"
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C LCD_Screen(0x27, 20, 4);
 
 // ============================================================================
 // Measurement & Sensor Constants
@@ -22,7 +24,7 @@ constexpr float CURRENT_SENSITIVITY = 0.185f;  // V/A
 // 4S Cell-Tap Voltage Divider — 47 kΩ / 10 kΩ
 constexpr float R_TOP              = 47000.0f;  // Ω
 constexpr float R_BOTTOM           = 10000.0f;  // Ω
-constexpr float CELL_DIVIDER_RATIO = (R_TOP + R_BOTTOM) / R_BOTTOM;
+constexpr float CELL_DIVIDER_RATIO = R_TOP / (R_TOP + R_BOTTOM);
 
 // ============================================================================
 // Sensor
@@ -38,6 +40,10 @@ protected:
     float maximum  = NAN;
     float average  = NAN;
     String label;
+    uint8_t subsystem;
+    uint8_t signal;
+    float maxLimit;
+    float minLimit;
 
     uint32_t sampleCount = 0;
 
@@ -123,24 +129,64 @@ public:
         Serial.print(realTime, 2);
         Serial.print(",");
     };
+
+    virtual void printFaults(uint8_t index) 
+    {
+        if(realTime >= maxLimit){
+            analogWrite(index + 2,127);
+            noTone(PIN::BUZZER);
+            if(realTime >= maxLimit * 1.3) {
+                analogWrite(index + 2,255);
+                tone(PIN::BUZZER, 1000);
+                int code = 1000 * subsystem + 100 * signal + 10 * 3 + 1;
+                Serial.print("f00=");
+                Serial.print(code);
+                Serial.print(",");
+            }else{
+                int code = 1000 * subsystem + 100 * signal + 10 * 2 + 1;
+                Serial.print("f00=");
+                Serial.print(code);
+                Serial.print(",");
+            }
+        } else if(realTime <= minLimit) {
+            analogWrite(index + 2,127);
+            noTone(PIN::BUZZER);
+            if(realTime <= minLimit * 0.7) {
+                tone(PIN::BUZZER, 1000);
+                analogWrite(index + 2,255);    
+                int code = 1000 * subsystem + 100 * signal + 10 * 3 + 2;
+                Serial.print("f00=");
+                Serial.print(code);
+                Serial.print(",");
+            } else {
+                int code = 1000 * subsystem + 100 * signal + 10 * 2 + 2;
+                Serial.print("f00=");
+                Serial.print(code);
+                Serial.print(",");
+            }
+        } else {
+            analogWrite(index + 2,0);
+            noTone(PIN::BUZZER);
+        }
+    }
 };
 
 class CurrentSensor : public Sensor
 {
 private:
 
+    
     uint8_t pin;
 
     float zeroCurrentVoltage = NAN;
 
 public:
 
-    CurrentSensor(uint8_t pin, String Label)
-        : pin(pin) {label=Label;}
+    CurrentSensor(uint8_t pin, uint8_t Subsystem, uint8_t Signal, String Label, float MaxLimit, float MinLimit)
+        : pin(pin) {label=Label; subsystem=Subsystem; signal=Signal; maxLimit=MaxLimit; minLimit=MinLimit;}
 
     void calibrate()
     {
-        Serial.println("calibrating..");
         constexpr uint16_t CAL_SAMPLES = 200;
 
         unsigned long sum = 0;
@@ -155,9 +201,6 @@ public:
         // Calculate average ADC reading
         float averageADC =
             sum / CAL_SAMPLES;
-
-        Serial.print(averageADC);
-        Serial.print("average ADC");
 
         // Convert ADC reading to sensor voltage
         zeroCurrentVoltage =
@@ -202,8 +245,8 @@ private:
 
 public:
 
-    TemperatureSensor(uint8_t pin, String Label)
-        : dht(pin) {label=Label;}
+    TemperatureSensor(uint8_t pin, uint8_t Subsystem, uint8_t Signal, String Label)
+        : dht(pin) {label=Label; subsystem=Subsystem; signal=Signal;}
 
     void read() override
     {
@@ -226,19 +269,64 @@ public:
 
 };
 
+class VoltageSensor : public Sensor
+{
+    private:
+
+    uint8_t pin;
+
+public:
+
+    VoltageSensor(uint8_t pin, uint8_t Subsystem, uint8_t Signal, String Label, float MaxLimit, float MinLimit)
+        : pin(pin) {label=Label; subsystem=Subsystem; signal=Signal; maxLimit=MaxLimit; minLimit=MinLimit;}
+
+    void read() override
+    {
+        uint16_t adcReading = analogRead(pin);
+
+        // Convert ADC value to sensor voltage
+        float sensorVoltage =
+            adcReading *
+            (ARDUINO_VOLTAGE_REF / 1023.0f);
+
+        // Convert sensor voltage to current
+        float voltage = sensorVoltage / CELL_DIVIDER_RATIO;
+
+        updateStatistics(voltage);
+    }
+};
+
+class CellSensor : public VoltageSensor {
+
+};
+
 CurrentSensor CURRENT_SENSORS[] = {
-    { PIN::CURRENT_5V,  "05C" },
-    { PIN::CURRENT_12V,  "12C" }
+    { PIN::CURRENT_5V, SUBSYSTEM::POWER_DISTRIBUTION, 4, "05C", 3, 0},
+    { PIN::CURRENT_12V, SUBSYSTEM::POWER_DISTRIBUTION, 2, "12C", 6, 0}
+};
+
+VoltageSensor CELL_TEST[] = {
+    { PIN::BATTERY_CELL_VOLTAGE[0], SUBSYSTEM::BATTERY, 4, "BC1", 3.75 , 3.00},
+    { PIN::BATTERY_CELL_VOLTAGE[1], SUBSYSTEM::BATTERY, 5, "BC2", 3.75 , 3.00},
+    { PIN::BATTERY_CELL_VOLTAGE[2], SUBSYSTEM::BATTERY, 6, "BC3", 3.75 , 3.00},
+    { PIN::BATTERY_CELL_VOLTAGE[3], SUBSYSTEM::BATTERY, 7, "BC4", 3.75 , 3.00}
 };
 
 TemperatureSensor TEMPERATURE_SENSORS[] = {
-    { PIN::BATTERY_TEMPERATURE_SENSOR, "BTP" }
+    { PIN::BATTERY_TEMPERATURE_SENSOR, SUBSYSTEM::BATTERY, 3, "BTP" }
 };
 
 Sensor* SENSORS[] = {
     &CURRENT_SENSORS[0],
-    &CURRENT_SENSORS[1],
-    &TEMPERATURE_SENSORS[0]
+    &CURRENT_SENSORS[1]
+};
+
+
+VoltageSensor* CELL_VOLTAGE_SENSORS[] = {
+    &CELL_TEST[0],
+    &CELL_TEST[1],
+    &CELL_TEST[2],
+    &CELL_TEST[3],
 };
 
 void CALIBRATE_CURRENT_SENSORS() {
