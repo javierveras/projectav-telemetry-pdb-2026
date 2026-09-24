@@ -15,7 +15,7 @@ void setup() {
     pinMode(pin, OUTPUT);
   }
 
-  pinMode(PIN::BUZZER, OUTPUT);
+  pinMode(PIN::BUZZER_LOUD, OUTPUT);
 
   Serial.println("START_READING");
 

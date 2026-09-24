@@ -17,7 +17,7 @@ namespace PIN // Pin assignments
     constexpr uint8_t BATTERY_CELL_VOLTAGE[4] = { A12, A13, A14, A15 };
     constexpr uint8_t LED_OUTPUT[4] = { 2, 3, 4, 5 };
     constexpr uint8_t AMBIENT_TEMPERATURE_SENSOR = 54;
-    constexpr uint8_t BUZZER = 12;
+    constexpr uint8_t BUZZER_LOUD = 12;
 }
 
 // System Fault Identifiers
