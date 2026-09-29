@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include "constants.h"
 #include "bms.h"
+#include "faults.h"
 #include "Bonezegei_DHT11.h"
 #include <LiquidCrystal_I2C.h>
 
@@ -78,6 +79,10 @@ protected:
         sampleCount++;
 
         average += (newValue - average) / sampleCount;
+
+        if (maximum > maxLimit) {
+            
+        }
     }
 
 
@@ -130,45 +135,6 @@ public:
         Serial.print(",");
     };
 
-    virtual void printFaults(uint8_t index) 
-    {
-        if(realTime >= maxLimit){
-            analogWrite(index + 2,127);
-            noTone(PIN::BUZZER);
-            if(realTime >= maxLimit * 1.3) {
-                analogWrite(index + 2,255);
-                tone(PIN::BUZZER, 1000);
-                int code = 1000 * subsystem + 100 * signal + 10 * 3 + 1;
-                Serial.print("f00=");
-                Serial.print(code);
-                Serial.print(",");
-            }else{
-                int code = 1000 * subsystem + 100 * signal + 10 * 2 + 1;
-                Serial.print("f00=");
-                Serial.print(code);
-                Serial.print(",");
-            }
-        } else if(realTime <= minLimit) {
-            analogWrite(index + 2,127);
-            noTone(PIN::BUZZER);
-            if(realTime <= minLimit * 0.7) {
-                tone(PIN::BUZZER, 1000);
-                analogWrite(index + 2,255);    
-                int code = 1000 * subsystem + 100 * signal + 10 * 3 + 2;
-                Serial.print("f00=");
-                Serial.print(code);
-                Serial.print(",");
-            } else {
-                int code = 1000 * subsystem + 100 * signal + 10 * 2 + 2;
-                Serial.print("f00=");
-                Serial.print(code);
-                Serial.print(",");
-            }
-        } else {
-            analogWrite(index + 2,0);
-            noTone(PIN::BUZZER);
-        }
-    }
 };
 
 class CurrentSensor : public Sensor

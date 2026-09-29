@@ -6801,6 +6801,16 @@
 		)
 		(uuid "82651680-2b38-4771-8d15-8552e57e5ff2")
 	)
+	(text "Wheel Current sensors\n"
+		(exclude_from_sim no)
+		(at 140.208 20.066 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "8a3e2d3a-b9e0-4c10-a23b-5209a100b1cd")
+	)
 	(text "24V boost\n\n"
 		(exclude_from_sim no)
 		(at 278.13 73.152 0)
@@ -8102,6 +8112,16 @@
 	)
 	(wire
 		(pts
+			(xy 134.62 88.9) (xy 152.4 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33b1d3e9-b264-4e69-bda4-a5dc0aa35104")
+	)
+	(wire
+		(pts
 			(xy 342.9 44.45) (xy 342.9 46.99)
 		)
 		(stroke
@@ -8152,6 +8172,16 @@
 	)
 	(wire
 		(pts
+			(xy 167.64 68.58) (xy 187.96 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36f80a8d-c632-4d14-b32c-fd65dd9a62cf")
+	)
+	(wire
+		(pts
 			(xy 373.38 213.36) (xy 386.08 213.36)
 		)
 		(stroke
@@ -8172,6 +8202,16 @@
 	)
 	(wire
 		(pts
+			(xy 134.62 30.48) (xy 152.4 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "388c5197-9c59-4257-9b71-436ff69f74ed")
+	)
+	(wire
+		(pts
 			(xy 209.55 158.75) (xy 209.55 161.29)
 		)
 		(stroke
@@ -8179,6 +8219,16 @@
 			(type default)
 		)
 		(uuid "38cd1e9e-a58a-4065-b98a-61a852269f5b")
+	)
+	(wire
+		(pts
+			(xy 134.62 48.26) (xy 152.4 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "38d0bc5a-9d5a-4e25-bf03-120040576c24")
 	)
 	(wire
 		(pts
@@ -8289,6 +8339,16 @@
 			(type default)
 		)
 		(uuid "3ff01109-af64-4557-bcc2-4792de603c49")
+	)
+	(wire
+		(pts
+			(xy 167.64 86.36) (xy 187.96 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40285cb1-f647-4d31-883c-089529294482")
 	)
 	(wire
 		(pts
@@ -8679,6 +8739,16 @@
 			(type solid)
 		)
 		(uuid "5c382079-5d3d-4194-85e1-c1f8963618ac")
+	)
+	(wire
+		(pts
+			(xy 167.64 50.8) (xy 187.96 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ce95a1a-eae4-4106-ac78-0c162f6f9f7c")
 	)
 	(wire
 		(pts
@@ -10102,6 +10172,16 @@
 	)
 	(wire
 		(pts
+			(xy 134.62 35.56) (xy 152.4 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8ff67c1-dcd3-46ce-9ca7-c65a233dfd57")
+	)
+	(wire
+		(pts
 			(xy 236.22 198.12) (xy 236.22 200.66)
 		)
 		(stroke
@@ -10199,6 +10279,16 @@
 			(type default)
 		)
 		(uuid "c1f1090a-0408-4a2d-9c3d-95425abc1315")
+	)
+	(wire
+		(pts
+			(xy 134.62 53.34) (xy 152.4 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2078592-cbec-4214-aa0c-de211db2ca42")
 	)
 	(wire
 		(pts
@@ -10682,6 +10772,16 @@
 	)
 	(wire
 		(pts
+			(xy 167.64 33.02) (xy 187.96 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e49d46e5-3640-46f1-9c59-580dca844cce")
+	)
+	(wire
+		(pts
 			(xy 69.85 158.75) (xy 82.55 158.75)
 		)
 		(stroke
@@ -10722,6 +10822,16 @@
 	)
 	(wire
 		(pts
+			(xy 134.62 83.82) (xy 152.4 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9011bf8-5fff-4afb-a7fc-2312480d29e7")
+	)
+	(wire
+		(pts
 			(xy 209.55 148.59) (xy 209.55 151.13)
 		)
 		(stroke
@@ -10739,6 +10849,16 @@
 			(type default)
 		)
 		(uuid "e9aa87e8-92a5-4649-963f-f8f1abbc97e2")
+	)
+	(wire
+		(pts
+			(xy 134.62 66.04) (xy 152.4 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9cf2e7e-158a-438a-8bc6-037d4fe38d77")
 	)
 	(wire
 		(pts
@@ -11102,6 +11222,16 @@
 	)
 	(wire
 		(pts
+			(xy 134.62 71.12) (xy 152.4 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd7fc442-560d-4001-9f37-15ed51a3c36d")
+	)
+	(wire
+		(pts
 			(xy 69.85 179.07) (xy 82.55 179.07)
 		)
 		(stroke
@@ -11209,6 +11339,16 @@
 			(justify left bottom)
 		)
 		(uuid "1040f050-9ce4-4f24-bf0b-5b37b2705327")
+	)
+	(label "24V_MEASS"
+		(at 134.62 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "107ebcb9-01e8-40f1-9cc7-aa3faac22d7b")
 	)
 	(label "RAW_BATT(15-ESCs)"
 		(at 205.74 83.82 0)
@@ -11380,6 +11520,16 @@
 		)
 		(uuid "387372db-fbda-4bc3-8de5-24a742b22c9f")
 	)
+	(label "RAW_BATT(15-ESCs)"
+		(at 134.62 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3a2c9269-0713-4fa1-b06c-5c58756c50e8")
+	)
 	(label "*52"
 		(at 36.83 238.76 270)
 		(effects
@@ -11540,6 +11690,16 @@
 		)
 		(uuid "6840e76a-f913-48da-a7f1-b39e01e0c062")
 	)
+	(label "BATT_MEASS"
+		(at 134.62 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "69d9983f-1dc0-422a-a44e-515b3835e20a")
+	)
 	(label "12V_VOLTAGE"
 		(at 245.11 121.92 0)
 		(effects
@@ -11619,6 +11779,16 @@
 			(justify left bottom)
 		)
 		(uuid "77f13ecb-1979-4443-9985-0af8aab6d148")
+	)
+	(label "12V_MEASS"
+		(at 134.62 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "785ee62c-9705-4de2-8a23-8d0433f63c2b")
 	)
 	(label "41"
 		(at 52.07 271.78 90)
@@ -11830,6 +12000,16 @@
 		)
 		(uuid "a68f0e37-1a1e-4489-9b6c-80004051cefc")
 	)
+	(label "+12V"
+		(at 134.62 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a73734b1-c371-4b6e-aaf9-e7643f466b11")
+	)
 	(label "42"
 		(at 49.53 238.76 270)
 		(effects
@@ -11849,6 +12029,16 @@
 			(justify left bottom)
 		)
 		(uuid "ad71996d-f241-40bd-b4b1-534d40f69088")
+	)
+	(label "+24V"
+		(at 134.62 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ad8926e3-a1ab-4727-b615-4115d4c4181b")
 	)
 	(label "TX0{slash}1"
 		(at 82.55 204.47 180)
@@ -12030,6 +12220,16 @@
 		)
 		(uuid "cd1da0aa-2646-4d65-a088-908ffc8c167a")
 	)
+	(label "BATT_CURRENT"
+		(at 168.91 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cd722eb3-b5aa-4730-a31f-4ba1e0f1fe47")
+	)
 	(label "12V_CURRENT"
 		(at 29.21 191.77 0)
 		(effects
@@ -12070,6 +12270,16 @@
 		)
 		(uuid "d1f016cc-8bf6-4af1-9ba8-66e5d25ac678")
 	)
+	(label "5V_MEASS"
+		(at 134.62 35.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d40db0d0-96b9-45ef-9044-f19e2f585029")
+	)
 	(label "*5"
 		(at 82.55 194.31 180)
 		(effects
@@ -12109,6 +12319,16 @@
 			(justify left bottom)
 		)
 		(uuid "de819ae4-b245-474b-a426-865ba877b8a2")
+	)
+	(label "+5V"
+		(at 134.62 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e37033d1-4f57-4b9b-a36b-29129f3da0a6")
 	)
 	(label "MEASS_CELL3"
 		(at 29.21 207.01 0)
@@ -12180,6 +12400,16 @@
 		)
 		(uuid "eab32ddf-9d4a-4536-9b23-419bd01aec67")
 	)
+	(label "24V_CURRENT"
+		(at 168.91 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eb72e4d1-d08b-4d56-8d56-c728a61acc74")
+	)
 	(label "TX3{slash}14"
 		(at 82.55 214.63 180)
 		(effects
@@ -12190,6 +12420,16 @@
 		)
 		(uuid "ecaf9a4d-bb16-4673-8318-6b25d78b7027")
 	)
+	(label "5V_CURRENT"
+		(at 168.91 33.02 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ee51db0f-1ed7-45ea-925d-b96b5137a383")
+	)
 	(label "TEMP_READING"
 		(at 345.44 62.23 0)
 		(effects
@@ -12199,6 +12439,16 @@
 			(justify left bottom)
 		)
 		(uuid "f637535f-c6fa-4754-acba-b33ca1309a47")
+	)
+	(label "12V_CURRENT"
+		(at 168.91 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f7fcd407-3bc3-47c4-9a4e-0ef90c062ac3")
 	)
 	(label "32"
 		(at 62.23 238.76 270)
@@ -12308,6 +12558,26 @@
 				(type none)
 			)
 			(uuid "50d76625-adad-4df5-ae0d-c1a0458833f7")
+		)
+	)
+	(rule_area
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(polyline
+			(pts
+				(xy 129.54 21.59) (xy 195.58 21.59) (xy 195.58 96.52) (xy 129.54 96.52)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+				(color 34 13 255 1)
+			)
+			(fill
+				(type none)
+			)
+			(uuid "872d5702-f2c2-4e5d-b507-02f4218aebb9")
 		)
 	)
 	(rule_area
@@ -26923,6 +27193,83 @@
 		)
 	)
 	(sheet
+		(at 152.4 44.45)
+		(size 15.24 12.7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "37fedb2a-cf0c-416d-83a4-67e7f6691b6a")
+		(property "Sheetname" "12V_Current_Sensor1"
+			(at 152.4 43.7384 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "current_sensor.kicad_sch"
+			(at 152.4 57.7346 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "C_OUT" input
+			(at 167.64 50.8 0)
+			(uuid "01e13491-e4d7-4b3d-b99a-4acd0fd3bc7f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "IP+" input
+			(at 152.4 48.26 180)
+			(uuid "3992e245-ca05-4ced-a3e5-331711190c33")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "IP-" input
+			(at 152.4 53.34 180)
+			(uuid "638b3972-864d-46c9-afae-3c97905b1a78")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "telemetry_mark_I"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 223.52 26.67)
 		(size 15.24 12.7)
 		(exclude_from_sim no)
@@ -27000,6 +27347,83 @@
 		)
 	)
 	(sheet
+		(at 152.4 62.23)
+		(size 15.24 12.7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "573c0243-0f9f-4ac3-a02f-d293e9e7c136")
+		(property "Sheetname" "24V_Current_Sensor1"
+			(at 152.4 61.5184 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "current_sensor.kicad_sch"
+			(at 152.4 75.5146 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "C_OUT" input
+			(at 167.64 68.58 0)
+			(uuid "b686c619-af21-4ed5-a6e2-cad62bfff755")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "IP+" input
+			(at 152.4 66.04 180)
+			(uuid "9ba4f403-cd2d-4b83-bb27-6fd359b7a5f4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "IP-" input
+			(at 152.4 71.12 180)
+			(uuid "38fe498d-7520-45ca-844d-ca55842572a9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "telemetry_mark_I"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 223.52 80.01)
 		(size 15.24 12.7)
 		(exclude_from_sim no)
@@ -27072,6 +27496,83 @@
 			(project "telemetry_mark_I"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 26.67)
+		(size 15.24 12.7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "8e35ea94-bf25-44a7-8116-000c834f74fa")
+		(property "Sheetname" "5V_Current_Sensor1"
+			(at 152.4 25.9584 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "current_sensor.kicad_sch"
+			(at 152.4 39.9546 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "C_OUT" input
+			(at 167.64 33.02 0)
+			(uuid "a6ae4e9b-08a3-4eb7-b220-52aba7103cee")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "IP+" input
+			(at 152.4 30.48 180)
+			(uuid "8cd76a00-04ac-4060-a018-a2f00387e0f7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "IP-" input
+			(at 152.4 35.56 180)
+			(uuid "2cd529e5-c53e-4e2d-b35d-7146ff2a6c89")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "telemetry_mark_I"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(page "3")
 				)
 			)
 		)
@@ -27226,6 +27727,83 @@
 			(project "telemetry_mark_I"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 80.01)
+		(size 15.24 12.7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "df1aa871-7d84-4ac5-927b-a2d9c23f6cdd")
+		(property "Sheetname" "BATT_Current_Sensor1"
+			(at 152.4 79.2984 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "current_sensor.kicad_sch"
+			(at 152.4 93.2946 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "C_OUT" input
+			(at 167.64 86.36 0)
+			(uuid "f0e2e0ea-f2f1-4ee7-836d-3cc185de2212")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "IP+" input
+			(at 152.4 83.82 180)
+			(uuid "25e05ee5-f516-44fb-a741-db9ea9d6a2b2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "IP-" input
+			(at 152.4 88.9 180)
+			(uuid "1668f8fe-7d9a-4641-a80a-fba365963f60")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "telemetry_mark_I"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(page "9")
 				)
 			)
 		)
