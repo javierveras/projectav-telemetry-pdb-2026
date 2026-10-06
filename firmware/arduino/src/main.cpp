@@ -8,8 +8,6 @@ void setup() {
 
   Serial.begin(115200);
 
-  uint8_t FaultCount = 0;
-
   CALIBRATE_CURRENT_SENSORS();
 
   for(int pin : PIN::LED_OUTPUT) { // Set LED pins
@@ -37,6 +35,7 @@ void loop() {
   {
       sensor.printToSerial();
       sensor.checkThreshold(faultIndex);
+      sensor.updateLED();
       faultIndex++;
   }
     Serial.println();

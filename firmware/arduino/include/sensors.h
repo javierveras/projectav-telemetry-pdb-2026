@@ -52,7 +52,6 @@ protected:
 
     uint32_t sampleCount = 0;
 
-
     void updateStatistics(float newValue)
     {
         // Ignore invalid measurements
@@ -88,6 +87,8 @@ protected:
 
 
 public:
+
+    bool faultDetected = false;
 
     float getCurrent() const
     {
@@ -150,6 +151,7 @@ public:
 {
     if (isnan(realTime))
         return;
+        
 
     // Above maximum
     if (realTime > maxLimit)
@@ -162,6 +164,7 @@ public:
             2           // Type 2 = HIGH
         );
 
+        faultDetected = true;
         fault.printFault();
     }
 
@@ -176,7 +179,12 @@ public:
             1           // Type 1 = LOW
         );
 
+        faultDetected = true;
         fault.printFault();
+    }
+
+    else{
+        faultDetected = false;
     }
 }
 };
@@ -396,7 +404,7 @@ class CellSensor : public VoltageSensor
 private:
 
     float tapVoltage = NAN;
-
+    uint8_t ledPin; 
 
 public:
 
@@ -406,7 +414,8 @@ public:
         uint8_t Signal,
         String Label,
         float MaxLimit,
-        float MinLimit
+        float MinLimit,
+        uint8_t LedPin
     )
         : VoltageSensor(
             pin,
@@ -415,7 +424,8 @@ public:
             Label,
             MaxLimit,
             MinLimit
-        )
+        ),
+        ledPin(LedPin)
     {}
 
 
@@ -443,6 +453,12 @@ public:
 
         updateStatistics(cellVoltage);
     }
+
+    void updateLED()
+    {
+        digitalWrite(ledPin, faultDetected ? HIGH : LOW);
+    }
+
 };
 
 
@@ -484,7 +500,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         4,
         "BC1",
         3.75f,
-        3.00f
+        3.00f,
+        PIN::LED_OUTPUT[0]
     },
 
     {
@@ -493,7 +510,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         5,
         "BC2",
         3.75f,
-        3.00f
+        3.00f,
+        PIN::LED_OUTPUT[1]
     },
 
     {
@@ -502,7 +520,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         6,
         "BC3",
         3.75f,
-        3.00f
+        3.00f,
+        PIN::LED_OUTPUT[2]
     },
 
     {
@@ -511,7 +530,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         7,
         "BC4",
         3.75f,
-        3.00f
+        3.00f,
+        PIN::LED_OUTPUT[3]
     }
 };
 
