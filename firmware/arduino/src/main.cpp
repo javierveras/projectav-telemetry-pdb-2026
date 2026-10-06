@@ -24,16 +24,22 @@ void setup() {
 
 void loop() {
 
-  for (VoltageSensor* sensor : CELL_VOLTAGE_SENSORS) {
-    sensor->read();
-  }
+  UPDATE_CELL_VOLTAGES();
 
   // Transmit every 250 ms
   const unsigned long now = millis();
 
   if (now - lastTelemetryTime >= TELEMETRY_MS)
   {
-
+    lastTelemetryTime = now;
+    uint8_t faultIndex = 0;
+  for (CellSensor& sensor : CELL_VOLTAGE_SENSORS)
+  {
+      sensor.printToSerial();
+      sensor.checkThreshold(faultIndex);
+      faultIndex++;
+  }
+    Serial.println();
   }
 
 }

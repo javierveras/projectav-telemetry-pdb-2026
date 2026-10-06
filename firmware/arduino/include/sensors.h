@@ -1,4 +1,5 @@
 #pragma once
+
 #include <Arduino.h>
 #include "constants.h"
 #include "bms.h"
@@ -16,16 +17,16 @@ LiquidCrystal_I2C LCD_Screen(0x27, 20, 4);
 constexpr float ARDUINO_VOLTAGE_REF = 5.0f;
 
 // Voltage Sensing
-// Calibration constant to be experimentally determined in the laboratory.
 constexpr float VOLTAGE_PROPORTIONALITY_CONST = 5.0f;
 
 // Current Sensing — ACS712 5 A
 constexpr float CURRENT_SENSITIVITY = 0.185f;  // V/A
 
 // 4S Cell-Tap Voltage Divider — 47 kΩ / 10 kΩ
-constexpr float R_TOP              = 47000.0f;  // Ω
-constexpr float R_BOTTOM           = 10000.0f;  // Ω
-constexpr float CELL_DIVIDER_RATIO = R_TOP / (R_TOP + R_BOTTOM);
+constexpr float R_TOP              = 47000.0f;
+constexpr float R_BOTTOM           = 10000.0f;
+constexpr float CELL_DIVIDER_RATIO = R_BOTTOM / (R_TOP + R_BOTTOM);
+
 
 // ============================================================================
 // Sensor
@@ -40,13 +41,17 @@ protected:
     float minimum  = NAN;
     float maximum  = NAN;
     float average  = NAN;
+
     String label;
+
     uint8_t subsystem;
     uint8_t signal;
+
     float maxLimit;
     float minLimit;
 
     uint32_t sampleCount = 0;
+
 
     void updateStatistics(float newValue)
     {
@@ -79,10 +84,6 @@ protected:
         sampleCount++;
 
         average += (newValue - average) / sampleCount;
-
-        if (maximum > maxLimit) {
-            
-        }
     }
 
 
@@ -93,30 +94,36 @@ public:
         return realTime;
     }
 
+
     float getMin() const
     {
         return minimum;
     }
+
 
     float getMax() const
     {
         return maximum;
     }
 
+
     float getAvg() const
     {
         return average;
     }
+
 
     uint32_t getSampleCount() const
     {
         return sampleCount;
     }
 
+
     bool hasData() const
     {
         return sampleCount > 0;
     }
+
 
     void resetStatistics()
     {
@@ -127,29 +134,86 @@ public:
         sampleCount = 0;
     }
 
-    virtual void read(){};
 
-    void printToSerial() {
-        Serial.print(label+"=");
+    virtual void read() {}
+
+
+    void printToSerial()
+    {
+        Serial.print(label);
+        Serial.print("=");
         Serial.print(realTime, 2);
         Serial.print(",");
-    };
+    }
 
+    void checkThreshold(uint8_t faultIndex)
+{
+    if (isnan(realTime))
+        return;
+
+    // Above maximum
+    if (realTime > maxLimit)
+    {
+        Fault fault(
+            faultIndex,
+            subsystem,
+            signal,
+            2,          // Severity
+            2           // Type 2 = HIGH
+        );
+
+        fault.printFault();
+    }
+
+    // Below minimum
+    else if (realTime < minLimit)
+    {
+        Fault fault(
+            faultIndex,
+            subsystem,
+            signal,
+            2,          // Severity
+            1           // Type 1 = LOW
+        );
+
+        fault.printFault();
+    }
+}
 };
+
+
+// ============================================================================
+// Current Sensor
+// ============================================================================
 
 class CurrentSensor : public Sensor
 {
 private:
 
-    
     uint8_t pin;
 
     float zeroCurrentVoltage = NAN;
 
+
 public:
 
-    CurrentSensor(uint8_t pin, uint8_t Subsystem, uint8_t Signal, String Label, float MaxLimit, float MinLimit)
-        : pin(pin) {label=Label; subsystem=Subsystem; signal=Signal; maxLimit=MaxLimit; minLimit=MinLimit;}
+    CurrentSensor(
+        uint8_t pin,
+        uint8_t Subsystem,
+        uint8_t Signal,
+        String Label,
+        float MaxLimit,
+        float MinLimit
+    )
+        : pin(pin)
+    {
+        label     = Label;
+        subsystem = Subsystem;
+        signal    = Signal;
+        maxLimit  = MaxLimit;
+        minLimit  = MinLimit;
+    }
+
 
     void calibrate()
     {
@@ -166,14 +230,14 @@ public:
 
         // Calculate average ADC reading
         float averageADC =
-            sum / CAL_SAMPLES;
+            static_cast<float>(sum) / CAL_SAMPLES;
 
         // Convert ADC reading to sensor voltage
         zeroCurrentVoltage =
             averageADC *
             (ARDUINO_VOLTAGE_REF / 1023.0f);
-
     }
+
 
     void read() override
     {
@@ -192,12 +256,17 @@ public:
         updateStatistics(current);
     }
 
+
     float getZeroCurrentVoltage() const
     {
         return zeroCurrentVoltage;
     }
 };
 
+
+// ============================================================================
+// Temperature Sensor
+// ============================================================================
 
 class TemperatureSensor : public Sensor
 {
@@ -209,10 +278,22 @@ private:
 
     static constexpr unsigned long READ_INTERVAL_MS = DHT_MS;
 
+
 public:
 
-    TemperatureSensor(uint8_t pin, uint8_t Subsystem, uint8_t Signal, String Label)
-        : dht(pin) {label=Label; subsystem=Subsystem; signal=Signal;}
+    TemperatureSensor(
+        uint8_t pin,
+        uint8_t Subsystem,
+        uint8_t Signal,
+        String Label
+    )
+        : dht(pin)
+    {
+        label     = Label;
+        subsystem = Subsystem;
+        signal    = Signal;
+    }
+
 
     void read() override
     {
@@ -232,73 +313,281 @@ public:
 
         updateStatistics(temperature);
     }
-
 };
+
+
+// ============================================================================
+// Voltage Sensor
+// ============================================================================
 
 class VoltageSensor : public Sensor
 {
-    private:
+protected:
 
     uint8_t pin;
 
-public:
 
-    VoltageSensor(uint8_t pin, uint8_t Subsystem, uint8_t Signal, String Label, float MaxLimit, float MinLimit)
-        : pin(pin) {label=Label; subsystem=Subsystem; signal=Signal; maxLimit=MaxLimit; minLimit=MinLimit;}
-
-    void read() override
+    float readVoltage()
     {
         uint16_t adcReading = analogRead(pin);
 
-        // Convert ADC value to sensor voltage
+        // Convert ADC value to Arduino pin voltage
         float sensorVoltage =
             adcReading *
             (ARDUINO_VOLTAGE_REF / 1023.0f);
 
-        // Convert sensor voltage to current
-        float voltage = sensorVoltage / CELL_DIVIDER_RATIO;
+        // Recover voltage before voltage divider
+        float voltage =
+            sensorVoltage / CELL_DIVIDER_RATIO;
+
+        return voltage;
+    }
+
+
+public:
+
+    VoltageSensor(
+        uint8_t pin,
+        uint8_t Subsystem,
+        uint8_t Signal,
+        String Label,
+        float MaxLimit,
+        float MinLimit
+    )
+        : pin(pin)
+    {
+        label     = Label;
+        subsystem = Subsystem;
+        signal    = Signal;
+        maxLimit  = MaxLimit;
+        minLimit  = MinLimit;
+    }
+
+
+    void read() override
+    {
+        float voltage = readVoltage();
 
         updateStatistics(voltage);
     }
 };
 
-class CellSensor : public VoltageSensor {
 
+// ============================================================================
+// Cell Sensor
+//
+// Battery cell taps are cumulative:
+//
+// Tap 1 = Cell 1
+// Tap 2 = Cell 1 + Cell 2
+// Tap 3 = Cell 1 + Cell 2 + Cell 3
+// Tap 4 = Cell 1 + Cell 2 + Cell 3 + Cell 4
+//
+// Therefore:
+//
+// Cell 1 = Tap 1
+// Cell 2 = Tap 2 - Tap 1
+// Cell 3 = Tap 3 - Tap 2
+// Cell 4 = Tap 4 - Tap 3
+// ============================================================================
+
+class CellSensor : public VoltageSensor
+{
+private:
+
+    float tapVoltage = NAN;
+
+
+public:
+
+    CellSensor(
+        uint8_t pin,
+        uint8_t Subsystem,
+        uint8_t Signal,
+        String Label,
+        float MaxLimit,
+        float MinLimit
+    )
+        : VoltageSensor(
+            pin,
+            Subsystem,
+            Signal,
+            Label,
+            MaxLimit,
+            MinLimit
+        )
+    {}
+
+
+    // Read cumulative voltage from battery tap
+    void readTap()
+    {
+        tapVoltage = readVoltage();
+    }
+
+
+    float getTapVoltage() const
+    {
+        return tapVoltage;
+    }
+
+
+    // Convert cumulative tap voltage into individual cell voltage
+    void updateCellVoltage(float previousTapVoltage)
+    {
+        if (isnan(tapVoltage))
+            return;
+
+        float cellVoltage =
+            tapVoltage - previousTapVoltage;
+
+        updateStatistics(cellVoltage);
+    }
 };
 
-CurrentSensor CURRENT_SENSORS[] = {
-    { PIN::CURRENT_5V, SUBSYSTEM::POWER_DISTRIBUTION, 4, "05C", 3, 0},
-    { PIN::CURRENT_12V, SUBSYSTEM::POWER_DISTRIBUTION, 2, "12C", 6, 0}
+
+// ============================================================================
+// Current Sensors
+// ============================================================================
+
+CurrentSensor CURRENT_SENSORS[] =
+{
+    {
+        PIN::CURRENT_5V,
+        SUBSYSTEM::POWER_DISTRIBUTION,
+        4,
+        "05C",
+        3.0f,
+        0.0f
+    },
+
+    {
+        PIN::CURRENT_12V,
+        SUBSYSTEM::POWER_DISTRIBUTION,
+        2,
+        "12C",
+        6.0f,
+        0.0f
+    }
 };
 
-VoltageSensor CELL_TEST[] = {
-    { PIN::BATTERY_CELL_VOLTAGE[0], SUBSYSTEM::BATTERY, 4, "BC1", 3.75 , 3.00},
-    { PIN::BATTERY_CELL_VOLTAGE[1], SUBSYSTEM::BATTERY, 5, "BC2", 3.75 , 3.00},
-    { PIN::BATTERY_CELL_VOLTAGE[2], SUBSYSTEM::BATTERY, 6, "BC3", 3.75 , 3.00},
-    { PIN::BATTERY_CELL_VOLTAGE[3], SUBSYSTEM::BATTERY, 7, "BC4", 3.75 , 3.00}
+
+// ============================================================================
+// Battery Cell Sensors
+// ============================================================================
+
+CellSensor CELL_VOLTAGE_SENSORS[] =
+{
+    {
+        PIN::BATTERY_CELL_VOLTAGE[0],
+        SUBSYSTEM::BATTERY,
+        4,
+        "BC1",
+        3.75f,
+        3.00f
+    },
+
+    {
+        PIN::BATTERY_CELL_VOLTAGE[1],
+        SUBSYSTEM::BATTERY,
+        5,
+        "BC2",
+        3.75f,
+        3.00f
+    },
+
+    {
+        PIN::BATTERY_CELL_VOLTAGE[2],
+        SUBSYSTEM::BATTERY,
+        6,
+        "BC3",
+        3.75f,
+        3.00f
+    },
+
+    {
+        PIN::BATTERY_CELL_VOLTAGE[3],
+        SUBSYSTEM::BATTERY,
+        7,
+        "BC4",
+        3.75f,
+        3.00f
+    }
 };
 
-TemperatureSensor TEMPERATURE_SENSORS[] = {
-    { PIN::BATTERY_TEMPERATURE_SENSOR, SUBSYSTEM::BATTERY, 3, "BTP" }
+
+// ============================================================================
+// Temperature Sensors
+// ============================================================================
+
+TemperatureSensor TEMPERATURE_SENSORS[] =
+{
+    {
+        PIN::BATTERY_TEMPERATURE_SENSOR,
+        SUBSYSTEM::BATTERY,
+        3,
+        "BTP"
+    }
 };
 
-Sensor* SENSORS[] = {
+
+// ============================================================================
+// Generic Sensor Array
+// ============================================================================
+
+Sensor* SENSORS[] =
+{
     &CURRENT_SENSORS[0],
     &CURRENT_SENSORS[1]
 };
 
 
-VoltageSensor* CELL_VOLTAGE_SENSORS[] = {
-    &CELL_TEST[0],
-    &CELL_TEST[1],
-    &CELL_TEST[2],
-    &CELL_TEST[3],
-};
+// ============================================================================
+// Current Sensor Calibration
+// ============================================================================
 
-void CALIBRATE_CURRENT_SENSORS() {
+void CALIBRATE_CURRENT_SENSORS()
+{
+    for (CurrentSensor& sensor : CURRENT_SENSORS)
+    {
+        sensor.calibrate();
+    }
+}
 
-  for (CurrentSensor& sensor : CURRENT_SENSORS) {
-    sensor.calibrate();
-  }
 
+// ============================================================================
+// Battery Cell Update
+//
+// IMPORTANT:
+// All taps are measured FIRST.
+//
+// This minimizes error caused by measuring Tap 1, calculating Cell 1,
+// waiting, then measuring Tap 2, etc.
+// ============================================================================
+
+void UPDATE_CELL_VOLTAGES()
+{
+    // --------------------------------------------------------
+    // Step 1: Measure all cumulative battery taps
+    // --------------------------------------------------------
+
+    for (CellSensor& cell : CELL_VOLTAGE_SENSORS)
+    {
+        cell.readTap();
+    }
+
+
+    // --------------------------------------------------------
+    // Step 2: Convert cumulative taps to individual cells
+    // --------------------------------------------------------
+
+    float previousTapVoltage = 0.0f;
+
+    for (CellSensor& cell : CELL_VOLTAGE_SENSORS)
+    {
+        cell.updateCellVoltage(previousTapVoltage);
+
+        previousTapVoltage =
+            cell.getTapVoltage();
+    }
 }
