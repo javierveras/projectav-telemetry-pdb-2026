@@ -694,7 +694,7 @@
         "uuid": "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
       }
     ],
-    "used_designators": "",
+    "used_designators": "#FLG7-8,#FLG25-30,J18",
     "variants": []
   },
   "sheets": [
@@ -708,7 +708,7 @@
     ],
     [
       "8e35ea94-bf25-44a7-8116-000c834f74fa",
-      "5V_Current_Sensor1"
+      "W1_Current_Sensor"
     ],
     [
       "cc3f46c3-1a58-45f3-a277-28f2aa53cdcd",
@@ -724,15 +724,15 @@
     ],
     [
       "37fedb2a-cf0c-416d-83a4-67e7f6691b6a",
-      "12V_Current_Sensor1"
+      "W2_Current_Sensor"
     ],
     [
       "573c0243-0f9f-4ac3-a02f-d293e9e7c136",
-      "24V_Current_Sensor1"
+      "W3_Current_Sensor"
     ],
     [
       "df1aa871-7d84-4ac5-927b-a2d9c23f6cdd",
-      "BATT_Current_Sensor1"
+      "W4_Current_Sensor"
     ]
   ],
   "text_variables": {},

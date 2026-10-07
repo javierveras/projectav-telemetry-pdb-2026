@@ -539,9 +539,9 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         4,
         "BC1",
-        3.8f,
+        4.1f,
         3.13f,
-        PIN::LED_OUTPUT[0]
+        PIN::LED_OUTPUT[0]  
     },
 
     {
@@ -549,7 +549,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         5,
         "BC2",
-        3.8f,
+        4.1f,
         3.13f,
         PIN::LED_OUTPUT[1]
     },
@@ -559,7 +559,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         6,
         "BC3",
-        3.8f,
+        4.1f,
         3.13f,
         PIN::LED_OUTPUT[2]
     },
@@ -569,7 +569,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         7,
         "BC4",
-        3.8f,
+        4.1f,
         3.13f,
         PIN::LED_OUTPUT[3]
     }

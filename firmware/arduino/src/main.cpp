@@ -48,12 +48,19 @@ void loop() {
   }
 
   if (severeFault)
-    {
-        tone(PIN::BUZZER, 2000);
-    }
-    else
-    {
-        noTone(PIN::BUZZER);
-    }
+  {
+      if ((millis() / 500) % 2 == 0)
+      {
+          tone(PIN::BUZZER, 2000);
+      }
+      else
+      {
+          noTone(PIN::BUZZER);
+      }
+  }
+  else
+  {
+      noTone(PIN::BUZZER);
+  }
 
 }
