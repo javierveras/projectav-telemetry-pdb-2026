@@ -89,6 +89,7 @@ protected:
 public:
 
     bool faultDetected = false;
+    bool severeFaultDetected = false;
 
     float getCurrent() const
     {
@@ -147,14 +148,47 @@ public:
         Serial.print(",");
     }
 
-    void checkThreshold(uint8_t faultIndex)
+void checkThreshold(uint8_t faultIndex)
 {
     if (isnan(realTime))
         return;
         
+        // Above maximum
+    if (realTime > maxLimit * 1.2)
+    {
+        Fault fault(
+            faultIndex,
+            subsystem,
+            signal,
+            3,          // Severity
+            2           // Type 2 = HIGH
+        );
+
+        faultDetected = true;
+        severeFaultDetected = true;
+        fault.printFault();
+        return;
+    }
+
+    // Below minimum
+    else if (realTime < minLimit * 0.8)
+    {
+        Fault fault(
+            faultIndex,
+            subsystem,
+            signal,
+            3,          // Severity
+            1           // Type 1 = LOW
+        );
+
+        faultDetected = true;
+        severeFaultDetected = true;
+        fault.printFault();
+        return;
+    }
 
     // Above maximum
-    if (realTime > maxLimit)
+    else if (realTime > maxLimit)
     {
         Fault fault(
             faultIndex,
@@ -166,6 +200,7 @@ public:
 
         faultDetected = true;
         fault.printFault();
+        return;
     }
 
     // Below minimum
@@ -181,10 +216,12 @@ public:
 
         faultDetected = true;
         fault.printFault();
+        return;
     }
 
     else{
         faultDetected = false;
+        return;
     }
 }
 };
@@ -499,8 +536,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         4,
         "BC1",
-        3.75f,
-        3.00f,
+        3.8f,
+        3.13f,
         PIN::LED_OUTPUT[0]
     },
 
@@ -509,8 +546,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         5,
         "BC2",
-        3.75f,
-        3.00f,
+        3.8f,
+        3.13f,
         PIN::LED_OUTPUT[1]
     },
 
@@ -519,8 +556,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         6,
         "BC3",
-        3.75f,
-        3.00f,
+        3.8f,
+        3.13f,
         PIN::LED_OUTPUT[2]
     },
 
@@ -529,8 +566,8 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         7,
         "BC4",
-        3.75f,
-        3.00f,
+        3.8f,
+        3.13f,
         PIN::LED_OUTPUT[3]
     }
 };

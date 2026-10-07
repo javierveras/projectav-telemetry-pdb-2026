@@ -2,7 +2,7 @@
 #include <Arduino.h>
 
 // Timing
-constexpr unsigned long TELEMETRY_MS     = 250;     // system-wide refresh-rate
+constexpr unsigned long TELEMETRY_MS     = 100;     // system-wide refresh-rate
 constexpr unsigned long DHT_MS           = 1200;    // DHT refresh rate, can't physically be less than 1000
 constexpr unsigned long BUZZER_FREQUENCY = 500;     // Buzzer beeping frequency
 constexpr uint16_t      ADC_SAMPLES      = 16;      // averages per reading 

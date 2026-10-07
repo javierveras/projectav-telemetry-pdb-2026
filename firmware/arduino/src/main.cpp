@@ -3,6 +3,7 @@
 #include "bms.h"
 
 unsigned long lastTelemetryTime;
+bool severeFault = false;
 
 void setup() {
 
@@ -31,14 +32,28 @@ void loop() {
   {
     lastTelemetryTime = now;
     uint8_t faultIndex = 0;
+    severeFault = false;
   for (CellSensor& sensor : CELL_VOLTAGE_SENSORS)
   {
       sensor.printToSerial();
       sensor.checkThreshold(faultIndex);
       sensor.updateLED();
+      if (sensor.severeFaultDetected)
+        {
+          severeFault = true;
+        }
       faultIndex++;
   }
     Serial.println();
   }
+
+  if (severeFault)
+    {
+        tone(PIN::BUZZER, 2000);
+    }
+    else
+    {
+        noTone(PIN::BUZZER);
+    }
 
 }
