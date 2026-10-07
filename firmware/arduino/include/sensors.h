@@ -150,6 +150,9 @@ public:
 
 void checkThreshold(uint8_t faultIndex)
 {
+    faultDetected = false;
+    severeFaultDetected = false;
+
     if (isnan(realTime))
         return;
         
