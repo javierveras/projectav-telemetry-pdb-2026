@@ -53,8 +53,8 @@
           "45_degree_only": false,
           "border_display_style": 2,
           "border_hatch_pitch": 0.5,
-          "corner_radius": 0.0,
-          "corner_smoothing": 0,
+          "corner_radius": 2.0,
+          "corner_smoothing": 2,
           "fill_mode": 0,
           "hatch_gap": 1.5,
           "hatch_orientation": 0.0,
@@ -64,8 +64,8 @@
           "min_clearance": 0.508,
           "min_island_area": 10.0,
           "min_thickness": 0.25,
-          "pad_connection": 1,
-          "remove_islands": 0,
+          "pad_connection": 2,
+          "remove_islands": 1,
           "thermal_relief_gap": 0.5,
           "thermal_relief_spoke_width": 0.5
         }
@@ -694,7 +694,7 @@
         "uuid": "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
       }
     ],
-    "used_designators": "#FLG7-8,#FLG25-30,J18",
+    "used_designators": "J8,J19-21,BZ1-2,#FLG5-6,#FLG9-10,#FLG27,#FLG31-37,D6-7,D11-16,#PWR14,#PWR17,#PWR24,#PWR26,#PWR33-34,#PWR36-37,#PWR40-41,#PWR45-47,#PWR50,#PWR55-62,#PWR83,#PWR93-107,RTOP5-24,Q1-2,RBOTT5-12,U13",
     "variants": []
   },
   "sheets": [
@@ -733,6 +733,10 @@
     [
       "df1aa871-7d84-4ac5-927b-a2d9c23f6cdd",
       "W4_Current_Sensor"
+    ],
+    [
+      "36500d45-edeb-4839-bac7-f2b40c7acb78",
+      "BMS"
     ]
   ],
   "text_variables": {},

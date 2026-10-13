@@ -21,7 +21,7 @@ constexpr float VOLTAGE_PROPORTIONALITY_CONST = 5.0f;
 
 // Current Sensing — ACS712 5 A
 constexpr float CURRENT_SENSITIVITY = 0.185f;  // V/A
-
+  
 // 4S Cell-Tap Voltage Divider — 47 kΩ / 10 kΩ
 constexpr float R_TOP              = 47000.0f;
 constexpr float R_BOTTOM           = 10000.0f;
@@ -539,7 +539,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         4,
         "BC1",
-        4.1f,
+        4.13f,
         3.13f,
         PIN::LED_OUTPUT[0]  
     },
@@ -549,7 +549,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         5,
         "BC2",
-        4.1f,
+        4.13f,
         3.13f,
         PIN::LED_OUTPUT[1]
     },
@@ -559,7 +559,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         6,
         "BC3",
-        4.1f,
+        4.13f,
         3.13f,
         PIN::LED_OUTPUT[2]
     },
@@ -569,7 +569,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         SUBSYSTEM::BATTERY,
         7,
         "BC4",
-        4.1f,
+        4.13f,
         3.13f,
         PIN::LED_OUTPUT[3]
     }
