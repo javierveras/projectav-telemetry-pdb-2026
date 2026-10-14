@@ -12,8 +12,14 @@ namespace PIN // Pin assignments
 {
     constexpr uint8_t CURRENT_5V  = A0;
     constexpr uint8_t CURRENT_12V = A1;
-    constexpr uint8_t VOLTAGE_5V  = A2;
-    constexpr uint8_t VOLTAGE_12V = A3;
+    constexpr uint8_t CURRENT_24V = A2;
+    constexpr uint8_t VOLTAGE_5V  = A3;
+    constexpr uint8_t VOLTAGE_12V = A4;
+    constexpr uint8_t VOLTAGE_24V = A5;
+    constexpr uint8_t CURRENT_FRC = A6;
+    constexpr uint8_t CURRENT_FLC = A7;
+    constexpr uint8_t CURRENT_BRC = A8;
+    constexpr uint8_t CURRENT_BLC = A9;
     constexpr uint8_t BATTERY_TEMPERATURE_SENSOR = 53;
     constexpr uint8_t BATTERY_CELL_VOLTAGE[4] = { A12, A13, A14, A15 };
     constexpr uint8_t LED_OUTPUT[4] = { 2, 3, 4, 5 };

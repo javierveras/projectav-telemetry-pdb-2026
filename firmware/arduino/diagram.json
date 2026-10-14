@@ -12,6 +12,13 @@
     },
     {
       "type": "wokwi-potentiometer",
+      "id": "current24v",
+      "top": -100,
+      "left": -150,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
       "id": "current5v",
       "top": 100,
       "left": -150,
@@ -136,6 +143,16 @@
     "attrs": {
       "volume": "0.1"
     }
+  },
+  {
+    "type": "wokwi-lcd2004",
+    "id": "lcd1",
+    "top": 100,
+    "left": 300,
+    "attrs": {
+      "pins": "i2c",
+      "i2cAddress": "0x27"
+    }
   }
   ],
 
@@ -147,6 +164,10 @@
     [ "current12v:VCC", "mega:5V", "red", [] ],
     [ "current12v:GND", "mega:GND.1", "black", [] ],
     [ "current12v:SIG", "mega:A1", "green", [] ],
+
+    [ "current24v:VCC", "mega:5V", "red", [] ],
+    [ "current24v:GND", "mega:GND.1", "black", [] ],
+    [ "current24v:SIG", "mega:A4", "green", [] ],
 
     [ "potA12:VCC", "mega:5V", "red", [] ],
     [ "potA12:GND", "mega:GND.1", "black", [] ],

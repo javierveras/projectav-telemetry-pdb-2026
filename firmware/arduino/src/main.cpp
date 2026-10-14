@@ -33,23 +33,45 @@ void loop() {
     lastTelemetryTime = now;
     uint8_t faultIndex = 0;
     severeFault = false;
-  for (CellSensor& sensor : CELL_VOLTAGE_SENSORS)
-  {
-      sensor.printToSerial();
-      sensor.checkThreshold(faultIndex);
-      sensor.updateLED();
-      if (sensor.severeFaultDetected)
-        {
-          severeFault = true;
-        }
-      faultIndex++;
-  }
-    Serial.println();
+    for (CellSensor& sensor : CELL_VOLTAGE_SENSORS)
+    {
+        sensor.printToSerial();
+        sensor.checkThreshold(faultIndex);
+        sensor.updateLED();
+        if (sensor.severeFaultDetected)
+          {
+            severeFault = true;
+          }
+        faultIndex++;
+    }
+    for (CurrentSensor& sensor : CURRENT_SENSORS)
+    {
+        sensor.read();
+        sensor.printToSerial();
+        sensor.checkThreshold(faultIndex);
+        if (sensor.severeFaultDetected)
+          {
+            severeFault = true;
+          }
+        faultIndex++;
+    }
+    for (VoltageSensor& sensor : VOLTAGE_SENSORS)
+    {
+        sensor.read();
+        sensor.printToSerial();
+        sensor.checkThreshold(faultIndex);
+        if (sensor.severeFaultDetected)
+          {
+            severeFault = true;
+          }
+        faultIndex++;
+    }
+      Serial.println();
   }
 
   if (severeFault)
   {
-      if ((millis() / 500) % 2 == 0)
+      if ((millis() / 250) % 2 == 0)
       {
           tone(PIN::BUZZER, 2000);
       }

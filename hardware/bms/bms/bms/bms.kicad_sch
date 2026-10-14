@@ -2866,7 +2866,7 @@
 		)
 		(uuid "09896bbd-cad7-444d-834e-9d85efe69051")
 	)
-	(label "LED4"
+	(label "RLED4"
 		(at 166.37 123.19 0)
 		(effects
 			(font
@@ -2946,7 +2946,7 @@
 		)
 		(uuid "8870ee44-f1e8-4059-90ab-e23dd62f1a55")
 	)
-	(label "LED2"
+	(label "RLED2"
 		(at 132.08 135.89 0)
 		(effects
 			(font
@@ -2996,7 +2996,7 @@
 		)
 		(uuid "b9ff6459-eb2f-465e-a058-54af94b34d5c")
 	)
-	(label "LED1"
+	(label "RLED1"
 		(at 132.08 123.19 0)
 		(effects
 			(font
@@ -3026,7 +3026,7 @@
 		)
 		(uuid "d36a810a-d9ea-4bc1-a792-fa1629778c01")
 	)
-	(label "LED3"
+	(label "RLED3"
 		(at 166.37 135.89 0)
 		(effects
 			(font
@@ -3078,7 +3078,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "01bbbca8-13ed-457e-aef0-2c623691e4e3")
-		(property "Reference" "RBOTT6"
+		(property "Reference" "RBOT3"
 			(at 69.85 124.4599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3186,7 +3186,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RBOTT6")
+					(reference "RBOT3")
 					(unit 1)
 				)
 			)
@@ -3301,7 +3301,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 147.32 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -3458,7 +3458,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2d01b5b4-0f80-4368-86f2-bbc4f1353245")
-		(property "Reference" "RTOP14"
+		(property "Reference" "RLED3"
 			(at 172.72 129.54 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3564,7 +3564,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP14")
+					(reference "RLED3")
 					(unit 1)
 				)
 			)
@@ -3659,7 +3659,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3a3e9bec-2cfb-4ade-95eb-c5e8414101fa")
-		(property "Reference" "RTOP6"
+		(property "Reference" "RTOP3"
 			(at 69.85 114.2999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3670,7 +3670,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "47K"
+		(property "Value" "27K"
 			(at 69.85 116.8399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3767,7 +3767,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP6")
+					(reference "RTOP3")
 					(unit 1)
 				)
 			)
@@ -3785,7 +3785,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "40ec9792-c320-4e26-9fda-2d68353b7c81")
-		(property "Reference" "RTOP13"
+		(property "Reference" "RLED2"
 			(at 138.43 129.54 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3891,7 +3891,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP13")
+					(reference "RLED2")
 					(unit 1)
 				)
 			)
@@ -3929,7 +3929,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 181.61 123.19 0)
 			(hide yes)
 			(show_name no)
@@ -4669,7 +4669,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "72bf17d3-5c7c-45ed-92e6-b2ac934278f7")
-		(property "Reference" "RBOTT8"
+		(property "Reference" "RBOT4"
 			(at 96.52 124.4599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4777,7 +4777,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RBOTT8")
+					(reference "RBOT4")
 					(unit 1)
 				)
 			)
@@ -4815,7 +4815,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 181.61 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -5118,7 +5118,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "841c4978-8b06-4c8b-be85-000fde426e23")
-		(property "Reference" "RBOTT7"
+		(property "Reference" "RBOT2"
 			(at 96.52 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5226,7 +5226,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RBOTT7")
+					(reference "RBOT2")
 					(unit 1)
 				)
 			)
@@ -5243,7 +5243,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "8589981b-2585-42d8-b53e-75d229a7cbe2")
-		(property "Reference" "RTOP11"
+		(property "Reference" "RBZRPULL1"
 			(at 149.86 96.5201 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5351,7 +5351,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP11")
+					(reference "RBZRPULL1")
 					(unit 1)
 				)
 			)
@@ -5525,7 +5525,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "90fa7256-60e5-4cdf-bb7f-61a3f247c0d0")
-		(property "Reference" "RTOP9"
+		(property "Reference" "RLED1"
 			(at 138.43 116.84 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5631,7 +5631,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP9")
+					(reference "RLED1")
 					(unit 1)
 				)
 			)
@@ -5649,7 +5649,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9685ac69-2511-4313-955a-ac2e52af9f00")
-		(property "Reference" "RTOP8"
+		(property "Reference" "RTOP4"
 			(at 96.52 114.2999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5660,7 +5660,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "47K"
+		(property "Value" "27K"
 			(at 96.52 116.8399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5757,7 +5757,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP8")
+					(reference "RTOP4")
 					(unit 1)
 				)
 			)
@@ -6024,7 +6024,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9ff962bc-1c30-465e-9e9b-4ee66729668f")
-		(property "Reference" "RTOP5"
+		(property "Reference" "RTOP1"
 			(at 69.85 77.4699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6035,7 +6035,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "47K"
+		(property "Value" "27K"
 			(at 69.85 80.0099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6132,7 +6132,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP5")
+					(reference "RTOP1")
 					(unit 1)
 				)
 			)
@@ -6383,7 +6383,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bd70a6bb-04b9-4791-98c6-8e90a419fabd")
-		(property "Reference" "RTOP7"
+		(property "Reference" "RTOP2"
 			(at 96.52 77.4699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6394,7 +6394,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "47K"
+		(property "Value" "27K"
 			(at 96.52 80.0099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6491,7 +6491,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP7")
+					(reference "RTOP2")
 					(unit 1)
 				)
 			)
@@ -6666,7 +6666,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d76f35fa-1d6a-4272-ab7e-f23a39f57844")
-		(property "Reference" "RBOTT5"
+		(property "Reference" "RBOT1"
 			(at 69.85 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6774,7 +6774,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RBOTT5")
+					(reference "RBOT1")
 					(unit 1)
 				)
 			)
@@ -6791,7 +6791,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "e019389e-953a-4cf9-98f0-b62b715a02e4")
-		(property "Reference" "RTOP10"
+		(property "Reference" "RBZR1"
 			(at 143.5099 85.09 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6899,7 +6899,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP10")
+					(reference "RBZR1")
 					(unit 1)
 				)
 			)
@@ -7150,7 +7150,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f631b40d-304e-49b7-b1fa-5c8ffbac3e63")
-		(property "Reference" "RTOP12"
+		(property "Reference" "RLED4"
 			(at 172.72 116.84 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7256,7 +7256,7 @@
 		(instances
 			(project "bms"
 				(path "/cb811605-a31a-48ea-ac3c-b6e14ef2e5ea"
-					(reference "RTOP12")
+					(reference "RLED4")
 					(unit 1)
 				)
 			)
@@ -7373,7 +7373,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_1206_3216Metric"
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
 			(at 147.32 135.89 0)
 			(hide yes)
 			(show_name no)

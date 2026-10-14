@@ -5,9 +5,6 @@
 #include "bms.h"
 #include "faults.h"
 #include "Bonezegei_DHT11.h"
-#include <LiquidCrystal_I2C.h>
-
-LiquidCrystal_I2C LCD_Screen(0x27, 20, 4);
 
 // ============================================================================
 // Measurement & Sensor Constants
@@ -524,6 +521,85 @@ CurrentSensor CURRENT_SENSORS[] =
         "12C",
         6.0f,
         0.0f
+    },
+
+    {
+        PIN::CURRENT_24V,
+        SUBSYSTEM::POWER_DISTRIBUTION,
+        6,
+        "24C",
+        6.0f,
+        0.0f
+    },
+
+    {
+        PIN::CURRENT_FRC,
+        SUBSYSTEM::MOBILITY,
+        1,
+        "FRC",
+        6.0f,
+        0.0f
+    },
+
+    {
+        PIN::CURRENT_FLC,
+        SUBSYSTEM::MOBILITY,
+        2,
+        "FLC",
+        6.0f,
+        0.0f
+    },
+
+    {
+        PIN::CURRENT_BRC,
+        SUBSYSTEM::MOBILITY,
+        3,
+        "BRC",
+        6.0f,
+        0.0f
+    },
+
+    {
+        PIN::CURRENT_BLC,
+        SUBSYSTEM::MOBILITY,
+        4,
+        "BLC",
+        6.0f,
+        0.0f
+    }
+};
+
+// ============================================================================
+// Voltage Sensors
+// ============================================================================
+
+VoltageSensor VOLTAGE_SENSORS[] =
+{
+    {
+        PIN::VOLTAGE_5V,
+        SUBSYSTEM::POWER_DISTRIBUTION,
+        3,
+        "05V",
+        4.5f,
+        5.5f 
+    },
+
+    {
+        PIN::VOLTAGE_12V,
+        SUBSYSTEM::POWER_DISTRIBUTION,
+        1,
+        "12V",
+        11.5f,
+        12.5f
+    },
+
+    {
+        PIN::VOLTAGE_24V,
+        SUBSYSTEM::POWER_DISTRIBUTION,
+        5,
+        "24V",
+        23.5f,
+        24.5f
     }
 };
 
@@ -538,7 +614,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         PIN::BATTERY_CELL_VOLTAGE[0],
         SUBSYSTEM::BATTERY,
         4,
-        "BC1",
+        "B1V",
         4.13f,
         3.13f,
         PIN::LED_OUTPUT[0]  
@@ -548,7 +624,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         PIN::BATTERY_CELL_VOLTAGE[1],
         SUBSYSTEM::BATTERY,
         5,
-        "BC2",
+        "B2V",
         4.13f,
         3.13f,
         PIN::LED_OUTPUT[1]
@@ -558,7 +634,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         PIN::BATTERY_CELL_VOLTAGE[2],
         SUBSYSTEM::BATTERY,
         6,
-        "BC3",
+        "B3V",
         4.13f,
         3.13f,
         PIN::LED_OUTPUT[2]
@@ -568,7 +644,7 @@ CellSensor CELL_VOLTAGE_SENSORS[] =
         PIN::BATTERY_CELL_VOLTAGE[3],
         SUBSYSTEM::BATTERY,
         7,
-        "BC4",
+        "B4V",
         4.13f,
         3.13f,
         PIN::LED_OUTPUT[3]
@@ -588,17 +664,6 @@ TemperatureSensor TEMPERATURE_SENSORS[] =
         3,
         "BTP"
     }
-};
-
-
-// ============================================================================
-// Generic Sensor Array
-// ============================================================================
-
-Sensor* SENSORS[] =
-{
-    &CURRENT_SENSORS[0],
-    &CURRENT_SENSORS[1]
 };
 
 
