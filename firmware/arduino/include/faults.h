@@ -1,3 +1,5 @@
+#pragma once
+
 class Fault
 {
 private:
@@ -33,7 +35,14 @@ public:
     void printFault() const
     {
         Serial.print("f");
-        Serial.print(index);
+
+        if(index>=10) {
+            Serial.print(index);
+        } else {
+            Serial.print("0");
+            Serial.print(index);
+        }
+
         Serial.print("=");
         Serial.print(getCode());
         Serial.print(",");

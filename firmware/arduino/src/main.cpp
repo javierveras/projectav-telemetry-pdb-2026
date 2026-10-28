@@ -1,13 +1,15 @@
 #include <Arduino.h>
 #include "sensors.h"
 #include "bms.h"
+#include "lcd.h"
 
 unsigned long lastTelemetryTime;
-bool severeFault = false;
+bool severeFault;
 
 void setup() {
 
   Serial.begin(115200);
+  Screen.begin();
 
   CALIBRATE_CURRENT_SENSORS();
 
@@ -15,7 +17,7 @@ void setup() {
     pinMode(pin, OUTPUT);
   }
 
-  pinMode(PIN::BUZZER, OUTPUT);
+  pinMode(PIN::BUZZER, OUTPUT); // Set Buzzer pin
 
   Serial.println("#START");
 
@@ -33,56 +35,21 @@ void loop() {
     lastTelemetryTime = now;
     uint8_t faultIndex = 0;
     severeFault = false;
-    for (CellSensor& sensor : CELL_VOLTAGE_SENSORS)
-    {
-        sensor.printToSerial();
-        sensor.checkThreshold(faultIndex);
-        sensor.updateLED();
-        if (sensor.severeFaultDetected)
-          {
+    for (Sensor* sensor : ALL_SENSORS)
+      {
+        sensor->read();
+        sensor->printToSerial();
+        sensor->checkThreshold(faultIndex);
+        sensor->updateLED();
+
+        if (sensor->severeFaultDetected)
             severeFault = true;
-          }
-        faultIndex++;
-    }
-    for (CurrentSensor& sensor : CURRENT_SENSORS)
-    {
-        sensor.read();
-        sensor.printToSerial();
-        sensor.checkThreshold(faultIndex);
-        if (sensor.severeFaultDetected)
-          {
-            severeFault = true;
-          }
-        faultIndex++;
-    }
-    for (VoltageSensor& sensor : VOLTAGE_SENSORS)
-    {
-        sensor.read();
-        sensor.printToSerial();
-        sensor.checkThreshold(faultIndex);
-        if (sensor.severeFaultDetected)
-          {
-            severeFault = true;
-          }
-        faultIndex++;
-    }
+
+        if (sensor->faultDetected)
+            faultIndex++;
+      }
       Serial.println();
   }
-
-  if (severeFault)
-  {
-      if ((millis() / 250) % 2 == 0)
-      {
-          tone(PIN::BUZZER, 2000);
-      }
-      else
-      {
-          noTone(PIN::BUZZER);
-      }
-  }
-  else
-  {
-      noTone(PIN::BUZZER);
-  }
-
+  buzzer.detectSevereFault(severeFault);
+  Screen.update();
 }

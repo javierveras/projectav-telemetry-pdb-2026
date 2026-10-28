@@ -134,10 +134,11 @@ public:
     }
 
 
-    virtual void read() {}
+    virtual void read() {};
 
+    virtual void updateLED() {};
 
-    void printToSerial()
+    virtual void printToSerial()
     {
         Serial.print(label);
         Serial.print("=");
@@ -145,7 +146,7 @@ public:
         Serial.print(",");
     }
 
-void checkThreshold(uint8_t faultIndex)
+virtual void checkThreshold(uint8_t faultIndex)
 {
     faultDetected = false;
     severeFaultDetected = false;
@@ -523,14 +524,14 @@ CurrentSensor CURRENT_SENSORS[] =
         0.0f
     },
 
-    {
+    /* {
         PIN::CURRENT_24V,
         SUBSYSTEM::POWER_DISTRIBUTION,
         6,
         "24C",
         6.0f,
         0.0f
-    },
+    },*/
 
     {
         PIN::CURRENT_FRC,
@@ -666,6 +667,33 @@ TemperatureSensor TEMPERATURE_SENSORS[] =
     }
 };
 
+Sensor* ALL_SENSORS[] =
+{
+    // Battery Cell Sensors
+    &CELL_VOLTAGE_SENSORS[0],
+    &CELL_VOLTAGE_SENSORS[1],
+    &CELL_VOLTAGE_SENSORS[2],
+    &CELL_VOLTAGE_SENSORS[3],
+
+    // Current Sensors
+    &CURRENT_SENSORS[0],
+    &CURRENT_SENSORS[1],
+    &CURRENT_SENSORS[2],
+    &CURRENT_SENSORS[3],
+    &CURRENT_SENSORS[4],
+    &CURRENT_SENSORS[5],
+
+    // Voltage Sensors
+    &VOLTAGE_SENSORS[0],
+    &VOLTAGE_SENSORS[1],
+    &VOLTAGE_SENSORS[2],
+
+    // Temperature Sensors
+    &TEMPERATURE_SENSORS[0]
+};
+
+constexpr size_t SENSOR_COUNT =
+    sizeof(ALL_SENSORS) / sizeof(ALL_SENSORS[0]);
 
 // ============================================================================
 // Current Sensor Calibration

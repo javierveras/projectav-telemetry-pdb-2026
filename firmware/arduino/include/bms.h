@@ -2,11 +2,34 @@
 #include "constants.h"
 #include <Arduino.h>
 
-float CUMULATIVE_CELL_VOLTAGES[4]  = { NAN, NAN, NAN, NAN }; 
+class Buzzer {
+    private:
+        uint8_t pin;
 
-float INDIVIDUAL_CELL_VOLTAGES[4] = {
-    CUMULATIVE_CELL_VOLTAGES[0],
-    CUMULATIVE_CELL_VOLTAGES[1] - CUMULATIVE_CELL_VOLTAGES[0],
-    CUMULATIVE_CELL_VOLTAGES[2] - CUMULATIVE_CELL_VOLTAGES[1],
-    CUMULATIVE_CELL_VOLTAGES[3] - CUMULATIVE_CELL_VOLTAGES[2]
-};   
+    public:
+        Buzzer(int PIN) 
+        {
+            pin=PIN;
+        }
+    
+    void detectSevereFault(bool severeFaultDetected) {
+        if (severeFaultDetected)
+        {
+            if ((millis() / 100) % 2 == 0)
+            {
+                tone(pin, 2000);
+            }
+            else
+            {
+                noTone(pin);
+            }
+        }
+        else
+        {
+            noTone(pin);
+        }
+    }
+
+};
+
+Buzzer buzzer(PIN::BUZZER);
