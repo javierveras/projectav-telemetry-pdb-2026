@@ -107,17 +107,28 @@ void LCD_Screen::showPower()
 void LCD_Screen::showBattery()
 {
     lcd.setCursor(0, 0);
-    lcd.print("BATTERY CELLS      ");
+    lcd.print("BATTERY CELLS (V)   ");
 
-    for (int i = 0; i < 3; i++)
-    {
-        lcd.setCursor(0, i + 1);
-        lcd.print("Cell ");
-        lcd.print(i + 1);
-        lcd.print(": ");
-        lcd.print(CELL_VOLTAGE_SENSORS[i].getCurrent(), 2);
-        lcd.print(" V      ");
-    }
+    lcd.setCursor(0, 1);
+    lcd.print("C1: ");
+    lcd.print(CELL_VOLTAGE_SENSORS[0].getCurrent(), 2);
+    lcd.setCursor(0, 2);
+    lcd.print("C2: ");
+    lcd.print(CELL_VOLTAGE_SENSORS[1].getCurrent(), 2);
+    lcd.setCursor(9, 1);
+    lcd.print("C3: ");
+    lcd.print(CELL_VOLTAGE_SENSORS[2].getCurrent(), 2);
+    lcd.setCursor(9, 2);
+    lcd.print("C4: ");
+    lcd.print(CELL_VOLTAGE_SENSORS[3].getCurrent(), 2);
+    lcd.setCursor(0, 3);
+    lcd.print("Total: ");
+    float sum = CELL_VOLTAGE_SENSORS[0].getCurrent() +
+                CELL_VOLTAGE_SENSORS[1].getCurrent() +
+                CELL_VOLTAGE_SENSORS[2].getCurrent() +
+                CELL_VOLTAGE_SENSORS[3].getCurrent();
+    lcd.print(sum, 2);
+
 }
 
 void LCD_Screen::showMobility()
