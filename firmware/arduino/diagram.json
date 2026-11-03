@@ -1,3 +1,4 @@
+
 {
   "version": 1,
   "author": "Javier",
@@ -12,68 +13,95 @@
     },
     {
       "type": "wokwi-potentiometer",
-      "id": "current24v",
-      "top": -100,
-      "left": -150,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-potentiometer",
       "id": "current5v",
-      "top": 100,
-      "left": -150,
+      "top": -350,
+      "left": -650,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
       "id": "current12v",
-      "top": 0,
-      "left": -150,
+      "top": -350,
+      "left": -450,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
-      "id": "potA12",
-      "top": 200,
-      "left": -150,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "potA13",
-      "top": 300,
-      "left": -150,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "potA14",
-      "top": 400,
-      "left": -150,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-potentiometer",
-      "id": "potA15",
-      "top": 500,
-      "left": -150,
+      "id": "current24v",
+      "top": -350,
+      "left": -250,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
       "id": "5V",
-      "top": 600,
-      "left": -150,
+      "top": -200,
+      "left": -650,
       "attrs": {}
     },
     {
       "type": "wokwi-potentiometer",
       "id": "24V",
-      "top": 700,
-      "left": -150,
+      "top": -200,
+      "left": -450,
       "attrs": {}
     },
-
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA6",
+      "top": -200,
+      "left": -250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA7",
+      "top": -50,
+      "left": -650,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA8",
+      "top": -50,
+      "left": -450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA9",
+      "top": -50,
+      "left": -250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA12",
+      "top": 100,
+      "left": -650,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA13",
+      "top": 100,
+      "left": -450,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA14",
+      "top": 100,
+      "left": -250,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "potA15",
+      "top": 250,
+      "left": -650,
+      "attrs": {}
+    },
     {
       "type": "wokwi-resistor",
       "id": "r1",
@@ -92,7 +120,6 @@
         "color": "red"
       }
     },
-
     {
       "type": "wokwi-resistor",
       "id": "r2",
@@ -111,7 +138,6 @@
         "color": "red"
       }
     },
-
     {
       "type": "wokwi-resistor",
       "id": "r3",
@@ -130,7 +156,6 @@
         "color": "red"
       }
     },
-
     {
       "type": "wokwi-resistor",
       "id": "r4",
@@ -149,27 +174,26 @@
         "color": "red"
       }
     },
-      {
-    "type": "wokwi-buzzer",
-    "id": "buzzer1",
-    "top": 280,
-    "left": 450,
-    "attrs": {
-      "volume": "0.1"
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer1",
+      "top": 280,
+      "left": 450,
+      "attrs": {
+        "volume": "0.1"
+      }
+    },
+    {
+      "type": "wokwi-lcd2004",
+      "id": "lcd1",
+      "top": -200,
+      "left": 500,
+      "attrs": {
+        "pins": "i2c",
+        "i2cAddress": "0x27"
+      }
     }
-  },
-  {
-    "type": "wokwi-lcd2004",
-    "id": "lcd1",
-    "top": -200,
-    "left": 500,
-    "attrs": {
-      "pins": "i2c",
-      "i2cAddress": "0x27"
-    }
-  }
   ],
-
   "connections": [
     [ "current5v:VCC", "mega:5V", "red", [] ],
     [ "current5v:GND", "mega:GND.1", "black", [] ],
@@ -182,6 +206,30 @@
     [ "current24v:VCC", "mega:5V", "red", [] ],
     [ "current24v:GND", "mega:GND.1", "black", [] ],
     [ "current24v:SIG", "mega:A4", "green", [] ],
+
+    [ "5V:VCC", "mega:5V", "red", [] ],
+    [ "5V:GND", "mega:GND.1", "black", [] ],
+    [ "5V:SIG", "mega:A3", "green", [] ],
+
+    [ "24V:VCC", "mega:5V", "red", [] ],
+    [ "24V:GND", "mega:GND.1", "black", [] ],
+    [ "24V:SIG", "mega:A5", "green", [] ],
+
+    [ "potA6:VCC", "mega:5V", "red", [] ],
+    [ "potA6:GND", "mega:GND.1", "black", [] ],
+    [ "potA6:SIG", "mega:A6", "green", [] ],
+
+    [ "potA7:VCC", "mega:5V", "red", [] ],
+    [ "potA7:GND", "mega:GND.1", "black", [] ],
+    [ "potA7:SIG", "mega:A7", "green", [] ],
+
+    [ "potA8:VCC", "mega:5V", "red", [] ],
+    [ "potA8:GND", "mega:GND.1", "black", [] ],
+    [ "potA8:SIG", "mega:A8", "green", [] ],
+
+    [ "potA9:VCC", "mega:5V", "red", [] ],
+    [ "potA9:GND", "mega:GND.1", "black", [] ],
+    [ "potA9:SIG", "mega:A9", "green", [] ],
 
     [ "potA12:VCC", "mega:5V", "red", [] ],
     [ "potA12:GND", "mega:GND.1", "black", [] ],
@@ -198,14 +246,6 @@
     [ "potA15:VCC", "mega:5V", "red", [] ],
     [ "potA15:GND", "mega:GND.1", "black", [] ],
     [ "potA15:SIG", "mega:A15", "green", [] ],
-
-    [ "5V:VCC", "mega:5V", "red", [] ],
-    [ "5V:GND", "mega:GND.1", "black", [] ],
-    [ "5V:SIG", "mega:A3", "green", [] ],
-
-    [ "24V:VCC", "mega:5V", "red", [] ],
-    [ "24V:GND", "mega:GND.1", "black", [] ],
-    [ "24V:SIG", "mega:A5", "green", [] ],
 
     [ "mega:2", "r1:1", "green", [] ],
     [ "r1:2", "LED1:A", "green", [] ],
@@ -225,14 +265,14 @@
 
     [ "buzzer1:1", "mega:12", "green", [] ],
     [ "buzzer1:2", "mega:GND.1", "black", [] ],
-    
+
     [ "lcd1:VCC", "mega:5V", "red", [] ],
     [ "lcd1:GND", "mega:GND.1", "black", [] ],
     [ "lcd1:SDA", "mega:20", "blue", [] ],
     [ "lcd1:SCL", "mega:21", "yellow", [] ]
   ],
-
-  "serialMonitor": {
+  "serialMonitor": 
+  {
     "display": "terminal",
     "newline": "lf"
   }

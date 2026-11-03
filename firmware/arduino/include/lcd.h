@@ -7,6 +7,8 @@
 #include "Bonezegei_DHT11.h"
 #include <LiquidCrystal_I2C.h>
 
+extern bool severeFault;
+
 class LCD_Screen
 {
 private:
@@ -41,13 +43,14 @@ public:
 
     void update()
     {
+        
         unsigned long now = millis();
 
         // Change page every 3 seconds
         if (now - lastPageChange >= 3000)
         {
             lastPageChange = now;
-            currentPage = (currentPage + 1) % 4;
+            currentPage = (currentPage + 1) % 5;
             lcd.clear();
         }
 
@@ -73,6 +76,9 @@ public:
             case 3:
                 showEnergy();
                 break;
+            case 4:
+                showFaults();
+                break;
         }
     }
 
@@ -80,34 +86,50 @@ public:
     void showBattery();
     void showMobility();
     void showEnergy();
+    void showFaults();
 };
 
 
 void LCD_Screen::showPower()
 {
     lcd.setCursor(0, 0);
-    lcd.print("POWER DISTRIBUTION  ");
+    lcd.print("    VOLTAGE BARS");
 
     lcd.setCursor(0, 1);
-    lcd.print("05V: ");
+    lcd.print("5V-T  ");
+    lcd.print("V:");
     lcd.print(VOLTAGE_SENSORS[0].getCurrent(), 2);
-    lcd.print(" V      ");
+
+    lcd.setCursor(13, 1);
+    lcd.print("I:");
+    lcd.print(CURRENT_SENSORS[0].getCurrent(), 2);
 
     lcd.setCursor(0, 2);
-    lcd.print("12V: ");
+    lcd.print("12V-T ");
+    lcd.print("V:");
     lcd.print(VOLTAGE_SENSORS[1].getCurrent(), 2);
-    lcd.print(" V      ");
+
+    lcd.setCursor(13, 2);
+    lcd.print("I:");
+    lcd.print(CURRENT_SENSORS[1].getCurrent(), 2);
 
     lcd.setCursor(0, 3);
-    lcd.print("24V: ");
-    lcd.print(VOLTAGE_SENSORS[2].getCurrent(), 2);
-    lcd.print(" V      ");
+    lcd.print("5P: ");
+    float POWER5 = VOLTAGE_SENSORS[0].getCurrent() * CURRENT_SENSORS[0].getCurrent();
+    lcd.print(POWER5, 2);
+
+    lcd.setCursor(9, 3);
+    lcd.print("12P: ");
+    float POWER12 = VOLTAGE_SENSORS[1].getCurrent() * CURRENT_SENSORS[1].getCurrent();
+    lcd.print(POWER12, 2);
+
+    
 }
 
 void LCD_Screen::showBattery()
 {
     lcd.setCursor(0, 0);
-    lcd.print("BATTERY CELLS (V)   ");
+    lcd.print("  BATTERY CELLS (V) ");
 
     lcd.setCursor(0, 1);
     lcd.print("C1: ");
@@ -133,17 +155,30 @@ void LCD_Screen::showBattery()
 
 void LCD_Screen::showMobility()
 {
-    lcd.setCursor(0, 0);
-    lcd.print("WHEEL CURRENTS     ");
 
     for (int i = 0; i < 3; i++)
-    {
-        lcd.setCursor(0, i + 1);
-        lcd.print("Wheel ");
-        lcd.print(i + 1);
-        lcd.print(": ");
-        lcd.print(CURRENT_SENSORS[i + 2].getCurrent(), 2);
-        lcd.print(" A      ");
+    {lcd.setCursor(0, 0);
+    lcd.print("WHEEL CURRENTS (A)   ");
+
+    lcd.setCursor(0, 1);
+    lcd.print("FR: ");
+    lcd.print(CURRENT_SENSORS[2].getCurrent(), 2);
+    lcd.setCursor(0, 2);
+    lcd.print("FL: ");
+    lcd.print(CURRENT_SENSORS[3].getCurrent(), 2);
+    lcd.setCursor(10, 1);
+    lcd.print("BR: ");
+    lcd.print(CURRENT_SENSORS[4].getCurrent(), 2);
+    lcd.setCursor(10, 2);
+    lcd.print("BL: ");
+    lcd.print(CURRENT_SENSORS[5].getCurrent(), 2);
+    lcd.setCursor(0, 3);
+    lcd.print("Total: ");
+    float sum = CURRENT_SENSORS[2].getCurrent() +
+                CURRENT_SENSORS[3].getCurrent() +
+                CURRENT_SENSORS[4].getCurrent() +
+                CURRENT_SENSORS[5].getCurrent();
+    lcd.print(sum, 2);
     }
 }
 
@@ -204,6 +239,42 @@ void LCD_Screen::showEnergy()
     lcd.print("Session: ");
     lcd.print(energyConsumed, 2);
     lcd.print(" Wh     ");
+}
+
+void LCD_Screen::showFaults()
+{
+    lcd.setCursor(0, 0);
+    lcd.print(" ACTIVE FAULTS [");
+    uint8_t faultQuant = 0;
+    for(int i = 0; i < 11; i++) {
+        if(faults[i] != 0) {
+            faultQuant++;
+        }
+    }
+    lcd.print(faultQuant);
+    if(severeFault) {
+        lcd.print("]!    ");
+    } else {
+        lcd.print("]    ");
+    }
+    lcd.setCursor(0, 1);
+
+
+
+    for (int i = 0; i < 12; i++)
+    {
+        int row = i / 4;
+        int col = (i % 4) * 5;
+
+        lcd.setCursor(col, row+1);
+        lcd.print("     ");
+
+        if (faults[i] != 0)
+        {
+            lcd.setCursor(col, row+1);
+            lcd.print(faults[i]);
+        }
+    }
 }
 
 LCD_Screen Screen;

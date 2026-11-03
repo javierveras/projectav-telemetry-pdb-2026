@@ -11,7 +11,7 @@
 // ============================================================================
 
 // ADC Reference
-constexpr float ARDUINO_VOLTAGE_REF = 5.0f;
+constexpr float ARDUINO_VOLTAGE_REF = 4.8f;
 
 // Voltage Sensing
 constexpr float VOLTAGE_PROPORTIONALITY_CONST = 5.0f;
@@ -22,7 +22,7 @@ constexpr float CURRENT_SENSITIVITY = 0.185f;  // V/A
 // 4S Cell-Tap Voltage Divider — 47 kΩ / 10 kΩ
 constexpr float R_TOP              = 47000.0f;
 constexpr float R_BOTTOM           = 10000.0f;
-constexpr float CELL_DIVIDER_RATIO = R_BOTTOM / (R_TOP + R_BOTTOM);
+constexpr float CELL_DIVIDER_RATIO = 0.197;
 
 
 // ============================================================================
@@ -162,12 +162,18 @@ virtual void checkThreshold(uint8_t faultIndex)
             subsystem,
             signal,
             3,          // Severity
-            2           // Type 2 = HIGH
+            1           // Type 1 = HIGH
         );
 
         faultDetected = true;
         severeFaultDetected = true;
         fault.printFault();
+        for(uint16_t& Fault: faults) {
+            if(Fault == 0) {
+                Fault = fault.getCode();
+                break;
+            }
+        }
         return;
     }
 
@@ -179,12 +185,18 @@ virtual void checkThreshold(uint8_t faultIndex)
             subsystem,
             signal,
             3,          // Severity
-            1           // Type 1 = LOW
+            2           // Type 2 = LOW
         );
 
         faultDetected = true;
         severeFaultDetected = true;
         fault.printFault();
+        for(uint16_t& Fault: faults) {
+            if(Fault == 0) {
+                Fault = fault.getCode();
+                break;
+            }
+        }
         return;
     }
 
@@ -196,11 +208,17 @@ virtual void checkThreshold(uint8_t faultIndex)
             subsystem,
             signal,
             2,          // Severity
-            2           // Type 2 = HIGH
+            1           // Type 1 = HIGH
         );
 
         faultDetected = true;
         fault.printFault();
+        for(uint16_t& Fault: faults) {
+            if(Fault == 0) {
+                Fault = fault.getCode();
+                break;
+            }
+        }
         return;
     }
 
@@ -212,11 +230,17 @@ virtual void checkThreshold(uint8_t faultIndex)
             subsystem,
             signal,
             2,          // Severity
-            1           // Type 1 = LOW
+            2           // Type 2 = LOW
         );
 
         faultDetected = true;
         fault.printFault();
+        for(uint16_t& Fault: faults) {
+            if(Fault == 0) {
+                Fault = fault.getCode();
+                break;
+            }
+        }
         return;
     }
 
@@ -373,7 +397,7 @@ protected:
     uint8_t pin;
 
 
-    float readVoltage()
+    virtual float readVoltage()
     {
         uint16_t adcReading = analogRead(pin);
 
@@ -483,8 +507,6 @@ public:
     // Convert cumulative tap voltage into individual cell voltage
     void updateCellVoltage(float previousTapVoltage)
     {
-        if (isnan(tapVoltage))
-            return;
 
         float cellVoltage =
             tapVoltage - previousTapVoltage;
@@ -594,14 +616,6 @@ VoltageSensor VOLTAGE_SENSORS[] =
         12.5f
     },
 
-    {
-        PIN::VOLTAGE_24V,
-        SUBSYSTEM::POWER_DISTRIBUTION,
-        5,
-        "24V",
-        23.5f,
-        24.5f
-    }
 };
 
 

@@ -48,3 +48,5 @@ public:
         Serial.print(",");
     }
 };
+
+extern uint16_t faults[12];

@@ -5,6 +5,7 @@
 
 unsigned long lastTelemetryTime;
 bool severeFault;
+uint16_t faults[12] = {};
 
 void setup() {
 
@@ -22,6 +23,7 @@ void setup() {
   Serial.println("#START");
 
 };
+
 
 void loop() {
 
@@ -49,7 +51,11 @@ void loop() {
             faultIndex++;
       }
       Serial.println();
+      Screen.update();
+      for (uint16_t& slot : faults)
+      {
+          slot = 0;
+        }
   }
   buzzer.detectSevereFault(severeFault);
-  Screen.update();
 }
