@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "sensors.h"
+#include "logger.h"
 #include "bms.h"
 #include "lcd.h"
 
@@ -11,6 +12,7 @@ void setup() {
 
   Serial.begin(115200);
   Screen.begin();
+  DataLogger.begin();
 
   CALIBRATE_CURRENT_SENSORS();
 
@@ -24,6 +26,7 @@ void setup() {
 
 };
 
+uint8_t logFrequencyCounter = 0;
 
 void loop() {
 
@@ -33,29 +36,40 @@ void loop() {
   const unsigned long now = millis();
 
   if (now - lastTelemetryTime >= TELEMETRY_MS)
-  {
+  { 
+    logFrequencyCounter++;
+    Serial.print("TIME="+String(now));
     lastTelemetryTime = now;
     uint8_t faultIndex = 0;
     severeFault = false;
+    String Data = String(now);
     for (Sensor* sensor : ALL_SENSORS)
-      {
-        sensor->read();
-        sensor->printToSerial();
-        sensor->checkThreshold(faultIndex);
-        sensor->updateLED();
+    {
+      sensor->read();
+      Data += "," + String(sensor->getCurrent());
+      sensor->printToSerial();
+      sensor->checkThreshold(faultIndex);
+      sensor->updateLED();
+      if (sensor->severeFaultDetected)
+          severeFault = true;
 
-        if (sensor->severeFaultDetected)
-            severeFault = true;
-
-        if (sensor->faultDetected)
-            faultIndex++;
-      }
+      if (sensor->faultDetected)
+          faultIndex++;
+    }
+    Serial.println();
+    Screen.update();
+    for (uint16_t& slot : faults)
+    {
+        slot = 0;
+    }
+    if(logFrequencyCounter >= 10)
+    {
+      DataLogger.save();
       Serial.println();
-      Screen.update();
-      for (uint16_t& slot : faults)
-      {
-          slot = 0;
-        }
+      Serial.print("DATA SAVED!");
+      Serial.println();
+      logFrequencyCounter = 0;
+    }
   }
   buzzer.detectSevereFault(severeFault);
 }

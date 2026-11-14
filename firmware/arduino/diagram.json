@@ -192,9 +192,36 @@
         "pins": "i2c",
         "i2cAddress": "0x27"
       }
+    },
+    {
+      "type": "wokwi-microsd-card",
+      "id": "sd1",
+      "top": 350,
+      "left": 750,
+      "attrs": {}
     }
+    
   ],
   "connections": [
+    [
+      "sd1:CS", "mega:53", "green", []
+    ],
+    [
+      "sd1:DI", "mega:51", "green", []
+    ],
+    [
+      "sd1:DO", "mega:50", "green", []
+    ],
+    [
+      "sd1:SCK", "mega:52", "green", []
+    ],
+    [
+      "sd1:VCC", "mega:5V", "red", []
+    ],
+    [
+      "sd1:GND", "mega:GND.1", "black", []
+    ],
+
     [ "current5v:VCC", "mega:5V", "red", [] ],
     [ "current5v:GND", "mega:GND.1", "black", [] ],
     [ "current5v:SIG", "mega:A0", "green", [] ],

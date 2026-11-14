@@ -34,6 +34,7 @@ public:
 
     void printFault() const
     {
+        Serial.print(",");
         Serial.print("f");
 
         if(index>=10) {
@@ -45,7 +46,6 @@ public:
 
         Serial.print("=");
         Serial.print(getCode());
-        Serial.print(",");
     }
 };
 

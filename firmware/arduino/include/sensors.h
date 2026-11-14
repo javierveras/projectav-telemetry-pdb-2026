@@ -7,25 +7,6 @@
 #include "Bonezegei_DHT11.h"
 
 // ============================================================================
-// Measurement & Sensor Constants
-// ============================================================================
-
-// ADC Reference
-constexpr float ARDUINO_VOLTAGE_REF = 4.8f;
-
-// Voltage Sensing
-constexpr float VOLTAGE_PROPORTIONALITY_CONST = 5.0f;
-
-// Current Sensing — ACS712 5 A
-constexpr float CURRENT_SENSITIVITY = 0.185f;  // V/A
-  
-// 4S Cell-Tap Voltage Divider — 47 kΩ / 10 kΩ
-constexpr float R_TOP              = 47000.0f;
-constexpr float R_BOTTOM           = 10000.0f;
-constexpr float CELL_DIVIDER_RATIO = 0.197;
-
-
-// ============================================================================
 // Sensor
 // Base class for all telemetry sensors.
 // ============================================================================
@@ -140,10 +121,10 @@ public:
 
     virtual void printToSerial()
     {
+        Serial.print(",");
         Serial.print(label);
         Serial.print("=");
         Serial.print(realTime, 2);
-        Serial.print(",");
     }
 
 virtual void checkThreshold(uint8_t faultIndex)
@@ -320,7 +301,7 @@ public:
 
         // Convert sensor voltage to current
         float current =
-            (sensorVoltage - zeroCurrentVoltage) /
+            -1 * (sensorVoltage - zeroCurrentVoltage) /
             CURRENT_SENSITIVITY;
 
         updateStatistics(current);
@@ -490,6 +471,21 @@ public:
         ledPin(LedPin)
     {}
 
+    float readVoltage() override
+    {
+        constexpr float CELL_ADC_REFERENCE = 4.8f;
+        constexpr float CELL_DIVIDER_RATIO = 0.168f;
+
+        uint16_t adcReading = analogRead(pin);
+
+        float sensorVoltage =
+            adcReading * (CELL_ADC_REFERENCE / 1023.0f);
+
+        float voltage =
+            sensorVoltage / CELL_DIVIDER_RATIO;
+
+        return voltage;
+    }
 
     // Read cumulative voltage from battery tap
     void readTap()
@@ -497,6 +493,10 @@ public:
         tapVoltage = readVoltage();
     }
 
+    void read() override
+    {
+        readTap();
+    }
 
     float getTapVoltage() const
     {
@@ -534,7 +534,7 @@ CurrentSensor CURRENT_SENSORS[] =
         4,
         "05C",
         3.0f,
-        0.0f
+        -0.1f
     },
 
     {
@@ -543,7 +543,7 @@ CurrentSensor CURRENT_SENSORS[] =
         2,
         "12C",
         6.0f,
-        0.0f
+        -0.1f
     },
 
     /* {
@@ -561,7 +561,7 @@ CurrentSensor CURRENT_SENSORS[] =
         1,
         "FRC",
         6.0f,
-        0.0f
+        -0.1f
     },
 
     {
@@ -570,7 +570,7 @@ CurrentSensor CURRENT_SENSORS[] =
         2,
         "FLC",
         6.0f,
-        0.0f
+        -0.1f
     },
 
     {
@@ -579,7 +579,7 @@ CurrentSensor CURRENT_SENSORS[] =
         3,
         "BRC",
         6.0f,
-        0.0f
+        -0.1f
     },
 
     {
@@ -588,7 +588,7 @@ CurrentSensor CURRENT_SENSORS[] =
         4,
         "BLC",
         6.0f,
-        0.0f
+        -0.1f
     }
 };
 
@@ -603,8 +603,8 @@ VoltageSensor VOLTAGE_SENSORS[] =
         SUBSYSTEM::POWER_DISTRIBUTION,
         3,
         "05V",
-        4.5f,
-        5.5f 
+        5.5f,
+        4.5f 
     },
 
     {
@@ -612,8 +612,8 @@ VoltageSensor VOLTAGE_SENSORS[] =
         SUBSYSTEM::POWER_DISTRIBUTION,
         1,
         "12V",
-        11.5f,
-        12.5f
+        12.5f,
+        11.5f
     },
 
 };
@@ -700,7 +700,6 @@ Sensor* ALL_SENSORS[] =
     // Voltage Sensors
     &VOLTAGE_SENSORS[0],
     &VOLTAGE_SENSORS[1],
-    &VOLTAGE_SENSORS[2],
 
     // Temperature Sensors
     &TEMPERATURE_SENSORS[0]
