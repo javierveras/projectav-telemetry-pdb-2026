@@ -65,9 +65,6 @@ void loop() {
     if(logFrequencyCounter >= 10)
     {
       DataLogger.save();
-      Serial.println();
-      Serial.print("DATA SAVED!");
-      Serial.println();
       logFrequencyCounter = 0;
     }
   }
