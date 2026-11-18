@@ -70,4 +70,6 @@ void loop() {
     }
   }
   buzzer.detectSevereFault(severeFault);
+
 }
+
