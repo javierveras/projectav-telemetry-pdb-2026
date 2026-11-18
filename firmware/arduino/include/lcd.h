@@ -221,14 +221,17 @@ void LCD_Screen::showEnergy()
 
     lastEnergyUpdate = now;
 
+float batteryPercentage =
+    ((batteryVoltage - MIN_BATTERY) /
+    (MAX_BATTERY - MIN_BATTERY)) * 100.0;
     // LCD output
     lcd.setCursor(0, 0);
     lcd.print("ENERGY CONSUMPTION  ");
 
     lcd.setCursor(0, 1);
     lcd.print("Battery: ");
-    lcd.print(batteryVoltage, 2);
-    lcd.print(" V    ");
+    lcd.print(batteryPercentage, 1);
+    lcd.print(" %    ");
 
     lcd.setCursor(0, 2);
     lcd.print("Power: ");

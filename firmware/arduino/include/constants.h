@@ -22,6 +22,10 @@ constexpr float R_TOP              = 47000.0f;
 constexpr float R_BOTTOM           = 10000.0f;
 constexpr float CELL_DIVIDER_RATIO = 0.2;
 
+//Battery-Conversion
+float MAX_BATTERY = 16.8;
+float MIN_BATTERY = 12.0;
+
 namespace PIN // Pin assignments
 {
     //Analog Sensors

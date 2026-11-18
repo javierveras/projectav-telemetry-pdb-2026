@@ -56,6 +56,7 @@ void loop() {
       if (sensor->faultDetected)
           faultIndex++;
     }
+    DataLogger.log(Data);
     Serial.println();
     Screen.update();
     for (uint16_t& slot : faults)
