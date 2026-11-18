@@ -5372,6 +5372,17 @@
 		(layer "Edge.Cuts")
 		(uuid "8302be11-7784-4ac0-9299-568fd57fc5de")
 	)
+	(gr_circle
+		(center 197.5 84)
+		(end 199 84)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "Edge.Cuts")
+		(uuid "5df1bc48-593e-4a4d-9e2f-a9aca41fa65a")
+	)
 	(gr_text "GND"
 		(at 196.25 89.75 90)
 		(layer "F.SilkS")

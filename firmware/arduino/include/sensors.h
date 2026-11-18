@@ -473,8 +473,8 @@ public:
 
     float readVoltage() override
     {
-        constexpr float CELL_ADC_REFERENCE = 4.8f;
-        constexpr float CELL_DIVIDER_RATIO = 0.168f;
+        constexpr float CELL_ADC_REFERENCE = 4.48f;
+        constexpr float CELL_DIVIDER_RATIO = 0.3f;
 
         uint16_t adcReading = analogRead(pin);
 

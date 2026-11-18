@@ -9,7 +9,7 @@ constexpr uint16_t      ADC_SAMPLES      = 16;      // averages per reading
 constexpr uint16_t      BATCELL_SAMPLES  = 32;      // higher due to cell noise
 
 // ADC Reference
-constexpr float ARDUINO_VOLTAGE_REF = 4.8f;
+constexpr float ARDUINO_VOLTAGE_REF = 4.48f;
 
 // Voltage Sensing
 constexpr float VOLTAGE_PROPORTIONALITY_CONST = 5.0f;
@@ -20,7 +20,7 @@ constexpr float CURRENT_SENSITIVITY = 0.185f;  // V/A
 // 4S Cell-Tap Voltage Divider — 47 kΩ / 10 kΩ
 constexpr float R_TOP              = 47000.0f;
 constexpr float R_BOTTOM           = 10000.0f;
-constexpr float CELL_DIVIDER_RATIO = 0.197;
+constexpr float CELL_DIVIDER_RATIO = 0.2;
 
 namespace PIN // Pin assignments
 {
@@ -33,20 +33,20 @@ namespace PIN // Pin assignments
     constexpr uint8_t CURRENT_FLC = A5;
     constexpr uint8_t CURRENT_BRC = A6;
     constexpr uint8_t CURRENT_BLC = A7;
-    constexpr uint8_t BATTERY_TEMPERATURE_SENSOR = 53;
+    constexpr uint8_t BATTERY_TEMPERATURE_SENSOR = 49;
     constexpr uint8_t BATTERY_CELL_VOLTAGE[4] = { A12, A13, A14, A15 };
     //Battery Management System
     constexpr uint8_t LED_OUTPUT[4] = { 2, 3, 4, 5 };
-    constexpr uint8_t BUZZER = 12;
+    constexpr uint8_t BUZZER = 7;
     //Data-Logging
-    constexpr uint8_t CARD_TO_ARDUINO = 50;
-    constexpr uint8_t ARDUINO_TO_CARD = 51;
+    constexpr uint8_t CARD_TO_ARDUINO = 50; //MISO
+    constexpr uint8_t ARDUINO_TO_CARD = 51; //MOSI
     constexpr uint8_t SPI_CLOCK = 52;
     constexpr uint8_t CHIP_SELECT = 53;
 }
 
 // System Fault Identifiers
-namespace SUBSYSTEM {
+namespace SUBSYSTEM {  
     uint8_t POWER_DISTRIBUTION = 1;
     uint8_t BATTERY = 2;
     uint8_t MOBILITY = 3;

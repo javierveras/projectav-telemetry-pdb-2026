@@ -15,14 +15,15 @@ class Buzzer {
     void detectSevereFault(bool severeFaultDetected) {
         if (severeFaultDetected)
         {
-            if ((millis() / 100) % 2 == 0)
+            /* if ((millis() / 100) % 2 == 0)
             {
                 tone(pin, 2000);
             }
             else
             {
                 noTone(pin);
-            }
+            } */
+           tone(pin, 2000);
         }
         else
         {
